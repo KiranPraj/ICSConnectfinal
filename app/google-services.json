@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "808308281628",
+    "firebase_url": "https://icsconnect-9c0ab.firebaseio.com",
+    "project_id": "icsconnect-9c0ab",
+    "storage_bucket": "icsconnect-9c0ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808308281628:android:411b8d106e55cf55",
+        "android_client_info": {
+          "package_name": "org.icspl.icsconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808308281628-or0iblm16uc5v4q6lmm01pmfl7vn2fpi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.icspl.icsconnect",
+            "certificate_hash": "ea38629c3b30c1a7dd3e075f3472dee225426f80"
+          }
+        },
+        {
+          "client_id": "808308281628-t1nvkaprnn6edaa11h75ec8u50bv750c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnR-xmPIlOO_pSVSBIJ-VWTZrn5nfF5q0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808308281628-t1nvkaprnn6edaa11h75ec8u50bv750c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
