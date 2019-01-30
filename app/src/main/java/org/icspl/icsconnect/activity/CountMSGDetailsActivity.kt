@@ -3,11 +3,12 @@ package org.icspl.icsconnect.activity
 import LoginPreference
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.util.Log.i
+import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -43,9 +44,13 @@ class CountMSGDetailsActivity : AppCompatActivity(), CountDetailsAdapter.Counter
     }
 
     private fun initRecyclerView() {
-        val mLayoutManager = LinearLayoutManager(this@CountMSGDetailsActivity, LinearLayoutManager.VERTICAL, false)
+        val mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            this@CountMSGDetailsActivity,
+            RecyclerView.VERTICAL,
+            false
+        )
         rv_count_details.layoutManager = mLayoutManager
-        rv_count_details.itemAnimator = DefaultItemAnimator()
+        rv_count_details.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         mAdapter = CountDetailsAdapter(mList, this@CountMSGDetailsActivity, this@CountMSGDetailsActivity)
         rv_count_details.adapter = mAdapter
 

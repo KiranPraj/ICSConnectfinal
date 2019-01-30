@@ -5,8 +5,6 @@ import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -14,6 +12,10 @@ import android.view.View.VISIBLE
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
 import org.icspl.icsconnect.MainActivity
 import org.icspl.icsconnect.R
@@ -28,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
     val TAG = LoginActivity::class.java.canonicalName
     private val mService by lazy { Common.getAPI() }
     private val mLoginPreference by lazy { LoginPreference.getInstance(this@LoginActivity) }
+    lateinit var token: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+        token = gettoken()
         setContentView(R.layout.activity_login)
         object : CountDownTimer(2000, 1000) {
             override fun onFinish() {
@@ -125,13 +129,16 @@ class LoginActivity : AppCompatActivity() {
     private fun fetchLogin(strUsername: String, password: String) {
 
 
-        mService.checkLogin(strUsername, password)
+        mService.checkLogin(strUsername, password, token)
             .enqueue(object : Callback<EmployeeDetail> {
                 override fun onResponse(call: Call<EmployeeDetail>, response: Response<EmployeeDetail>) {
                     if (response.isSuccessful && response.body() != null) {
                         Toast.makeText(this@LoginActivity, "Login Success", Toast.LENGTH_LONG).show()
                         mLoginPreference.savStringeData("id", strUsername)
                         mLoginPreference.savStringeData("password", password)
+                        mLoginPreference.savStringeData("password", password)
+                        mLoginPreference.savStringeData("name", response.body()!!.name)
+                        mLoginPreference.savStringeData("photo", response.body()!!.photo)
                         startActivity(
                             Intent(
                                 this@LoginActivity, MainActivity
@@ -151,6 +158,25 @@ class LoginActivity : AppCompatActivity() {
 
             })
 
+    }
+
+    private fun gettoken(): String {
+        var token: String? = null
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("TOKEN Failed", "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+                // Get new Instance ID token
+                token = task.result!!.token
+
+                if (token != null) mLoginPreference.savStringeData("token", token!!)
+
+                Log.d(MainActivity.TAG, "Login Firebase Token: " + token)
+            })
+
+        return mLoginPreference.getStringData("token", "")!!
     }
 }
 

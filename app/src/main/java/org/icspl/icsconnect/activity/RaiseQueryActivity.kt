@@ -1,71 +1,160 @@
 package org.icspl.icsconnect.activity
 
 
+import LoginPreference
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.util.Log.i
-import android.widget.SearchView
-import io.reactivex.Observable
-import io.reactivex.ObservableSource
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
+import com.mancj.materialsearchbar.MaterialSearchBar
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
-import io.reactivex.functions.Function
 import io.reactivex.functions.Predicate
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_raise_query.*
-import org.icspl.icsconnect.adapters.SearchAdapter
+import org.icspl.icsconnect.models.SearchModel
 import org.icspl.icsconnect.utils.Common
 import java.util.concurrent.TimeUnit
 
-class RaiseQueryActivity : AppCompatActivity() {
+
+class RaiseQueryActivity : AppCompatActivity(),
+    PopupMenu.OnMenuItemClickListener {
 
 
     private val mService by lazy { Common.getAPI() }
     val TAG = RaiseQueryActivity::class.java.simpleName
-    private lateinit var searchList: ArrayList<String>
-    private lateinit var mAdapter: SearchAdapter
+    private var searchList: MutableList<String> = ArrayList()
+    private var searchHashList: HashMap<Int, SearchModel> = hashMapOf()
+
+    private lateinit var searchBar: MaterialSearchBar
+    private val mDisposeOn = CompositeDisposable()
+    private val mLoginPreference by lazy { LoginPreference.getInstance(this@RaiseQueryActivity) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(org.icspl.icsconnect.R.layout.activity_raise_query)
 
-        handleSearchChangeLisitenr()
-        initRV()
+        //handleSearchChangeLisitenr()
+        initSearchBar()
+        btn_send_query.setOnClickListener { handleQuery() }
     }
 
-    private fun initRV() {
-        searchList = mutableListOf<String>() as ArrayList<String>
-        searchView.onActionViewExpanded();
+    // prepare data to send to server
+    private fun handleQuery() {
 
-        val mLayoutManager = LinearLayoutManager(this@RaiseQueryActivity, LinearLayoutManager.VERTICAL, false)
-        rv_search_results.setHasFixedSize(true)
-        rv_search_results.layoutManager = mLayoutManager
-        rv_search_results.itemAnimator = DefaultItemAnimator()
-        mAdapter = SearchAdapter(searchList, this@RaiseQueryActivity)
-        rv_search_results.adapter = mAdapter
+        if (et_message_query.text!!.length == 0) {
+            Toast.makeText(this@RaiseQueryActivity, "Error", Toast.LENGTH_SHORT).show()
+            til_raised.isErrorEnabled = true
+            til_raised.error = "Query can not be Empty"
+            return
+        }
+        if (til_raised.isErrorEnabled)
+            til_raised.isErrorEnabled = false
+
+        mDisposeOn.add(
+            mService.postQuery(
+                mLoginPreference.getStringData("id", "")!!,
+                tv_rased_to.tag.toString(),
+                et_message_query.text.toString(),
+                Common().getDateFormat(),
+                mLoginPreference.getStringData("name", "")!!,
+                et_message_query.text.toString()
+            )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    if (it != null) {
+                        if (it.get(0).response!! >= 1) {
+                            Toast.makeText(this@RaiseQueryActivity, "Query Raised Successfully", Toast.LENGTH_SHORT)
+                                .show()
+                        } else
+                            Toast.makeText(this@RaiseQueryActivity, "Failed to Raised Query", Toast.LENGTH_SHORT)
+                                .show()
+                    }
+                })
     }
 
-    private fun handleSearchChangeLisitenr() {
-        val searched = arrayOfNulls<String>(1)
+    private fun initSearchBar() {
+        searchBar = findViewById(org.icspl.icsconnect.R.id.searchView);
+        searchBar.setHint("Search Opposite Name");
+        searchBar.inflateMenu(org.icspl.icsconnect.R.menu.menu_open)
+        searchBar.setCardViewElevation(10)
+        searchBar.setMaxSuggestionCount(10)
+        searchList.add("Sanjay")
+        searchList.add("Parmesh")
+        searchBar.lastSuggestions = searchList
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(s: String): Boolean {
+        searchBar.addTextChangeListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
-                return true
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                Log.d("LOG_TAG", javaClass.simpleName + " text changed " + searchBar.text)
+
+                val suggest = ArrayList<String>()
+                for (search_term in searchList) {
+                    if (search_term.toLowerCase().contentEquals(searchBar.text.toLowerCase())) {
+                        suggest.add(search_term)
+                        tv_rased_to.text = searchBar.text
+                    }
+                    searchBar.lastSuggestions = suggest
+
+                }
+
+                for (search_term in searchList) {
+                    if (search_term.toLowerCase().contentEquals(searchBar.text.toLowerCase())) {
+                        val v = searchHashList.getValue(searchList.indexOf(search_term))
+                        tv_rased_to.text = v.name
+                        tv_rased_to.tag = v.id
+                    }
+                    searchBar.lastSuggestions = suggest
+
+                }
+                setUpSearchObservable(charSequence.toString())
             }
 
-            override fun onQueryTextChange(text: String): Boolean {
-                searchList.clear()
-                if (text.length >= 1)
-                    setUpSearchObservable(text)
-                return true
+            override fun afterTextChanged(editable: Editable) {
+                if (editable.toString().length >= 1)
+                    setUpSearchObservable(editable.toString())
+            }
+        })
+
+        searchBar.setOnSearchActionListener(object : MaterialSearchBar.OnSearchActionListener {
+            override fun onButtonClicked(buttonCode: Int) {}
+            override fun onSearchStateChanged(enabled: Boolean) {}
+
+            override fun onSearchConfirmed(text: CharSequence?) {
+                i(TAG, "Search Confirmed")
+                setUpSearchObservable(text.toString())
             }
         })
 
     }
 
+
+/*private fun handleSearchChangeLisitenr() {
+val searched = arrayOfNulls<String>(1)
+
+searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+    override fun onQueryTextSubmit(s: String): Boolean {
+
+        return true
+    }
+
+    override fun onQueryTextChange(text: String): Boolean {
+        searchList.clear()
+        if (text.length >= 1)
+            setUpSearchObservable(text)
+        return true
+    }
+})
+
+}*/
 
     private fun setUpSearchObservable(searched: String) {
         mService.search(searched)
@@ -76,37 +165,36 @@ class RaiseQueryActivity : AppCompatActivity() {
                     true
                 else false
             })
-            .distinctUntilChanged()
-            .switchMap(object : Function<List<String>, ObservableSource<List<String>>> {
-                override fun apply(t: List<String>): ObservableSource<List<String>>? {
-                    return dataFromNetwork(t)
-                }
-
-            })
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Consumer<List<String>> {
-                override fun accept(result: List<String>) {
+            .subscribe(object : Consumer<List<SearchModel>> {
+                override fun accept(result: List<SearchModel>) {
                     searchList.clear()
-                    result.forEach {
-                        i(TAG, "DATA: $it")
-                        searchList.add(it)
+                    searchHashList.clear()
+                    if (!result.isNullOrEmpty()) {
+                        for (model in result) {
+                            searchHashList.put(result.indexOf(model), model)
+                            i(TAG, "Key: ${result.indexOf(model)} : Value: ${model.name}")
+                        }
+
+                        for (model in searchHashList) {
+                            searchList.add(model.value.name!! + " - " + model.value.id!!)
+                        }
+                        searchBar.lastSuggestions = searchList
+
                     }
-                    mAdapter.notifyDataSetChanged()
+
                 }
             })
     }
 
-    /**
-     * Simulation of network data
-     */
-    private fun dataFromNetwork(query: List<String>): Observable<List<String>> {
-        return Observable.just(true)
-            .delay(1, TimeUnit.SECONDS)
-            .map(object : Function<Boolean, List<String>> {
-                override fun apply(t: Boolean): List<String> {
-                    return query
-                }
-            })
+
+    override fun onMenuItemClick(p0: MenuItem?): Boolean {
+        return true
+    }
+
+    override fun onStop() {
+        mDisposeOn.clear()
+        super.onStop()
     }
 }

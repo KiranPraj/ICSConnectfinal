@@ -1,11 +1,13 @@
 package org.icspl.icsconnect
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.util.Log.i
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
+import kotlinx.android.synthetic.main.activity_main.*
+import org.icspl.icsconnect.activity.RaiseQueryActivity
 import org.icspl.icsconnect.fragments.OpenedCountFragment
 
 
@@ -19,8 +21,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
@@ -31,13 +31,18 @@ class MainActivity : AppCompatActivity() {
                 // Get new Instance ID token
                 val token = task.result!!.token
 
-                Log.d(TAG, token)
+                Log.d(TAG, "Firebase Token: " + token)
             })
 
-        i("TOKEN", FirebaseInstanceId.getInstance().token.toString())
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, OpenedCountFragment(), getString(R.string.count_fragment))
             .commit()
 
+        fab.setOnClickListener {
+            val intent = Intent(this@MainActivity, RaiseQueryActivity::class.java)
+            startActivity(intent)
+        }
     }
+
+
 }

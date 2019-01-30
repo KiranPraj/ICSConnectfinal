@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +28,7 @@ import android.view.MenuInflater
 
 
 
-class OpenedCountFragment : Fragment(), OpenedCountAdapter.CounterListener {
+class OpenedCountFragment : androidx.fragment.app.Fragment(), OpenedCountAdapter.CounterListener {
 
 
     private lateinit var mView: View
@@ -100,9 +100,13 @@ class OpenedCountFragment : Fragment(), OpenedCountAdapter.CounterListener {
     private fun init() {
         mContext = mView.context
         //questionsList = arrayListOf()
-        val mLayoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
+        val mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            mContext,
+            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+            false
+        )
         mView.rv_groups.layoutManager = mLayoutManager
-        mView.rv_groups.itemAnimator = DefaultItemAnimator()
+        mView.rv_groups.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
         mAdapter = OpenedCountAdapter(countList, mContext, this)
         mAdapter.notifyDataSetChanged()
         mView.rv_groups.adapter = mAdapter

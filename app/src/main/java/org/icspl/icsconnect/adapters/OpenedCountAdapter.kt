@@ -2,7 +2,7 @@ package org.icspl.icsconnect.adapters
 
 import android.content.AsyncQueryHandler
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +18,13 @@ import org.icspl.icsconnect.models.CountMSGModel
 
 class OpenedCountAdapter(
     private val mList: List<CountMSGModel.Countmessage>, private val mContext: Context, var mCallback: CounterListener
-) : RecyclerView.Adapter<OpenedCountAdapter.ViewHolder>() {
+) : androidx.recyclerview.widget.RecyclerView.Adapter<OpenedCountAdapter.ViewHolder>() {
 
     interface CounterListener {
         fun clickListenere(id: String, photo: String?, isMineQuery: Boolean)
     }
 
-    inner class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder internal constructor(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         public var tv_user_name: TextView
         public var tv_count_msg: TextView
         public var tv_last_chat: TextView

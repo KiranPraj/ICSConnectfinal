@@ -3,9 +3,9 @@ package org.icspl.icsconnect.activity
 import LoginPreference
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.widget.Toolbar
 import android.util.Log
 import android.util.Log.i
 import android.view.Menu
@@ -62,7 +62,7 @@ class ChatActivity : AppCompatActivity() {
     private fun initRecyclerView() {
 
         recyclerView.setHasFixedSize(true)
-        val manager = LinearLayoutManager(this@ChatActivity)
+        val manager = androidx.recyclerview.widget.LinearLayoutManager(this@ChatActivity)
         manager.reverseLayout = false;
         manager.stackFromEnd = true;
         recyclerView.layoutManager = manager
@@ -86,11 +86,7 @@ class ChatActivity : AppCompatActivity() {
         })
         bt_send.setOnClickListener({
             if (et_message.getText().toString() != "") {
-
-
                 sendMessages()
-
-
             }
         })
 
@@ -161,13 +157,12 @@ class ChatActivity : AppCompatActivity() {
                             val item = Chat(fromTo, it.remarks!!, it.sendfrm!!.drop(14), photoPath)
                             data.add(item)
                         }
-                        if (mLoginPreference.getStringData("id", "")!!
-                                .equals(s.ShowCloseButton!![0].fromemp)
-                        ) {
+                        /* if (mLoginPreference.getStringData("id", "")!!
+                                .equals(s.ShowCloseButton!![0].fromemp)) {
                             item!!.setVisible(true)
                         } else {
                             item!!.setVisible(false)
-                        }
+                        }*/
                     } else
                         Log.i(TAG, "Null Data:")
                 }, { throwable ->
@@ -177,34 +172,7 @@ class ChatActivity : AppCompatActivity() {
         return data
     }
 
-    fun setData(): List<Chat> {
-        val data = ArrayList<Chat>()
 
-        val text = arrayOf(
-            "15 September",
-            "Hi, Srjlove! How are you?",
-            "Hi, Ramesh, looks great! :) ",
-            "I'm fine. Wanna go out somewhere?",
-            "Yes! Coffe maybe?",
-            "Great idea! You can come 9:00 pm? :)))",
-            "Ok!",
-            "Ow my good, this Kit is totally awesome",
-            "Can you provide other kit?",
-            "I don't have much time, :`("
-        )
-        val time = arrayOf(
-            "", "5:30pm", "5:35pm", "5:36pm", "5:40pm", "5:41pm",
-            "5:42pm", "5:40pm", "5:41pm", "5:42pm"
-        )
-        val type = arrayOf("0", "2", "1", "1", "2", "1", "2", "2", "2", "1")
-
-        for (i in text.indices) {
-            val item = Chat(type[i], text[i], time[i], photoPath)
-            data.add(item)
-        }
-
-        return data
-    }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {

@@ -11,7 +11,10 @@ interface ApiService {
 
 
     @GET("Login")
-    fun checkLogin(@Query("id") name: String, @Query("password") password: String): Call<EmployeeDetail>
+    fun checkLogin(
+        @Query("id") name: String,
+        @Query("password") password: String, @Query("token") token: String
+    ): Call<EmployeeDetail>
 
     @GET("CountMessage")
     fun getCountMSg(@Query("id") name: String): Observable<CountMSGModel>
@@ -36,6 +39,14 @@ interface ApiService {
 
     // get the search result
     @GET("Allcontacts")
-    fun search(@Query("name") name: String): Observable<List<String>>
+    fun search(@Query("name") name: String): Observable<List<SearchModel>>
+
+    // Post Query
+    @FormUrlEncoded
+    @POST("QueryRaise")
+    fun postQuery(
+        @Field("fromemp") fromemp: String, @Field("toemp") toemp: String, @Field("remark") remarks: String,
+        @Field("time") time: String, @Field("fromname") fromname: String, @Field("toname") toname: String
+    ): Observable<List<ServerResponseModel>>
 
 }

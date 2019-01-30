@@ -1,6 +1,6 @@
 package org.icspl.icsconnect.adapters;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import org.icspl.icsconnect.R;

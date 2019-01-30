@@ -24,7 +24,7 @@
                 android:textColor="@color/colorTextInfo"
                 android:textSize="@dimen/h4"
         />
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@+id/tv_chat_text"
@@ -64,6 +64,6 @@
                     app:layout_constraintRight_toRightOf="@+id/iv_chat_me"
                     app:layout_constraintTop_toBottomOf="@+id/iv_chat_me"
                     android:layout_marginBottom="8dp" android:textIsSelectable="true"/>
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 </RelativeLayout>

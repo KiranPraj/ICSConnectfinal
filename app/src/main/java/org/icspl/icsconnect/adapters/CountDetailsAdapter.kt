@@ -1,7 +1,7 @@
 package org.icspl.icsconnect.adapters
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,13 +19,13 @@ class CountDetailsAdapter(
     private val mList: List<CountMSGDetailsModel.IndividualDetail>,
     private val mContext: Context,
     var mCallback: CounterListener
-) : RecyclerView.Adapter<CountDetailsAdapter.ViewHolder>() {
+) : androidx.recyclerview.widget.RecyclerView.Adapter<CountDetailsAdapter.ViewHolder>() {
 
     interface CounterListener {
         fun clickListenere(id: String, photo: String?, toemp: String?)
     }
 
-    inner class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder internal constructor(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         public var tv_user_name: TextView
         public var tv_count_msg: TextView
         public var tv_last_chat: TextView
