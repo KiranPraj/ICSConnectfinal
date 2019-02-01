@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.orhanobut:dialogplus:1.11@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/dialogplus-1.11.aar/7580b28473d79a994f44ce36d566255d/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/dialogplus-1.11.aar/7580b28473d79a994f44ce36d566255d/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/dialogplus-1.11.aar/166e3021a584cc6a35c14d0c87b2f2a1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/dialogplus-1.11.aar/166e3021a584cc6a35c14d0c87b2f2a1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
