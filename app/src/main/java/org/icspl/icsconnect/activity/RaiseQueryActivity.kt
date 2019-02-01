@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.util.Log.i
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
@@ -21,11 +22,25 @@ import kotlinx.android.synthetic.main.activity_raise_query.*
 import org.icspl.icsconnect.models.SearchModel
 import org.icspl.icsconnect.utils.Common
 import java.util.concurrent.TimeUnit
+import com.orhanobut.dialogplus.DialogPlus
+import com.orhanobut.dialogplus.OnItemClickListener
+
+import android.widget.TextView
+import android.R.id.custom
+import android.app.Dialog
+import android.content.Context
+import android.view.Gravity
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import org.icspl.icsconnect.R
+import org.icspl.icsconnect.adapters.FileChooserAdapter
 
 
 class RaiseQueryActivity : AppCompatActivity(),
     PopupMenu.OnMenuItemClickListener {
 
+    val context: Context = this
 
     private val mService by lazy { Common.getAPI() }
     val TAG = RaiseQueryActivity::class.java.simpleName
@@ -43,6 +58,9 @@ class RaiseQueryActivity : AppCompatActivity(),
         //handleSearchChangeLisitenr()
         initSearchBar()
         btn_send_query.setOnClickListener { handleQuery() }
+
+
+        btn_raised_attachment.setOnClickListener { ChooserDialog() }
     }
 
     // prepare data to send to server
@@ -136,7 +154,24 @@ class RaiseQueryActivity : AppCompatActivity(),
 
     }
 
+private fun ChooserDialog(){
 
+    val dialog = DialogPlus.newDialog(this)
+        .setAdapter(FileChooserAdapter(this@RaiseQueryActivity,1))
+        .setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(dialog: DialogPlus, item: Any, view: View, position: Int) {
+
+            }
+        })
+        .setExpanded(false)
+        .setGravity(Gravity.CENTER)
+        .setContentWidth(ViewGroup.LayoutParams.WRAP_CONTENT)  // or any custom width ie: 300
+        .setContentHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        // This will enable the expand feature, (similar to android L share dialog)
+        .create()
+    dialog.show()
+}
 /*private fun handleSearchChangeLisitenr() {
 val searched = arrayOfNulls<String>(1)
 

@@ -2,6 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -16,15 +17,17 @@
     <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/white" android:layout_margin="4dp"
-            app:cardUseCompatPadding="true" android:layout_gravity="bottom">
+            app:cardBackgroundColor="@color/white"
+            android:layout_margin="4dp"
+            app:cardUseCompatPadding="true"
+            android:gravity="bottom">
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
+
                 android:layout_height="match_parent">
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:weightSum="2"
                     android:layout_height="match_parent">
                 <com.google.android.material.chip.Chip
                         android:text="To:"
@@ -60,7 +63,7 @@
                         android:layout_marginStart="8dp"/>
                 <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="57dp"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:textColorHint="@color/colorPrimary"
                         android:hint="Enter your Query"
