@@ -1,35 +1,46 @@
 package org.icspl.icsconnect.adapters;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
-import androidx.palette.graphics.Palette;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.palette.graphics.Palette;
+import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import org.icspl.icsconnect.R;
 import org.icspl.icsconnect.models.Chat;
+import org.icspl.icsconnect.preferences.LoginPreference;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Dytstudio.
- */
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    // The items to display in your RecyclerView
     private List<Chat> items;
+    private Context mContext;
+    private LoginPreference mLoginPreference;
+
+    private DoccumentClickHandler doccumentClickHandler;
 
     private final int DATE = 0, YOU = 1, ME = 2, IMAGES = 3;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ChatAdapter(List<Chat> items) {
+    public ChatAdapter(List<Chat> items, Context mContext, DoccumentClickHandler doccumentClickHandler) {
         this.items = items;
+        this.mContext = mContext;
+        this.doccumentClickHandler = doccumentClickHandler;
+        mLoginPreference = LoginPreference.Companion.getInstance(mContext);
+
+    }
+
+    public interface DoccumentClickHandler {
+        void ClickImageCallback(String docUrl, View v);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -146,18 +157,46 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
-    private void configureViewHolder3(HolderMe vh1, int position) {
+    private void configureViewHolder3(HolderMe vh1, final int position) {
         vh1.getTime().setText(items.get(position).getTime());
         vh1.getChatText().setText(items.get(position).getText());
+
+
+        if (items.get(position).getDoccument() != null) {
+                vh1.getmAttachmentLayout().setVisibility(View.VISIBLE);
+                vh1.getImg_attchment_view().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // TODO : Change download document Local URL to Server URL
+                           doccumentClickHandler.ClickImageCallback("http://www.africau.edu/images/default/sample.pdf" + items.get(position).getDoccument(), v);
+                    }
+                });
+        } else vh1.getmAttachmentLayout().setVisibility(View.GONE);
+
+
     }
 
-    private void configureViewHolder2(HolderYou vh1, int position) {
+    private void configureViewHolder2(HolderYou vh1, final int position) {
         vh1.getTime().setText(items.get(position).getTime());
         vh1.getChatText().setText(items.get(position).getText());
         Picasso.get().load("http://icspl.org/data/Employeephoto/" + items.get(position).getPhotoPath())
                 .placeholder(R.drawable.ic_user)
                 .error(R.drawable.ic_user)
                 .into(vh1.getIv_other_you());
+
+        if (items.get(position).getDoccument() != null) {
+                vh1.getLl_chat_attachment_you().setVisibility(View.VISIBLE);
+                vh1.getImg_attchment_view().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // TODO : Change download document Local URL to Server URL
+                        doccumentClickHandler.ClickImageCallback("http://www.africau.edu/images/default/sample.pdf", v);
+                    }
+                });
+
+            Toast.makeText(mContext, "Holder You clicked", Toast.LENGTH_SHORT).show();
+
+        } else vh1.getLl_chat_attachment_you().setVisibility(View.GONE);
     }
 
     private void configureViewHolder1(HolderDate vh1, int position) {

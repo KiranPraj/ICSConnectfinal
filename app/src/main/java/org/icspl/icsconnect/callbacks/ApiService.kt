@@ -2,6 +2,8 @@ package org.icspl.icsconnect.callbacks
 
 
 import io.reactivex.Observable
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.icspl.icsconnect.models.*
 import retrofit2.Call
 import retrofit2.http.*
@@ -26,27 +28,49 @@ interface ApiService {
     @GET("Conversation")
     fun getConversation(@Query("queryid") name: String): Observable<ConversationModel>
 
-    @FormUrlEncoded
+    @Multipart
     @POST("SendMessage")
     fun sendMessage(
-        @Field("queryid") queryid: String,
-        @Field("fromemp") fromemp: String,
-        @Field("toemp") toemp: String,
-        @Field("remarks") remarks: String,
-        @Field("sendfrm") sendfrm: String,
-        @Field("file") file: String?
+        @Part("queryid") queryid: RequestBody,
+        @Part("fromemp") fromemp: RequestBody,
+        @Part("toemp") toemp: RequestBody,
+        @Part("remarks") remarks: RequestBody,
+        @Part("sendfrm") sendfrm: RequestBody,
+        @Part file: MultipartBody.Part?
     ): Observable<List<ServerResponseModel>>
 
     // get the search result
     @GET("Allcontacts")
     fun search(@Query("name") name: String): Observable<List<SearchModel>>
 
-    // Post Query
+    // get the search result
+    @GET("AllClosedMessages")
+    fun allCloseQuery(@Query("id") empCode: String): Observable<CloseMessage>
+
+    // create group
     @FormUrlEncoded
+    @POST("CreateGroup")
+    fun createGroup(
+        @Field("group_title") group_title: String,
+        @Field("masteradmin") masteradmin: String,
+        @Field("groupadmin") groupadmin: String,
+        @Field("members") members: String
+    ): Observable<List<ServerResponseModel>>
+
+
+    // Close Individual Query
+    @FormUrlEncoded
+    @POST("MessageClosed")
+    fun closeQuery(@Field("queryid") name: String): Observable<List<ServerResponseModel>>
+
+    // Post Query
+    @Multipart
     @POST("QueryRaise")
     fun postQuery(
-        @Field("fromemp") fromemp: String, @Field("toemp") toemp: String, @Field("remark") remarks: String,
-        @Field("time") time: String, @Field("fromname") fromname: String, @Field("toname") toname: String
+        @Part("fromemp") fromemp: RequestBody, @Part("toemp") toemp: RequestBody,
+        @Part("remark") remarks: RequestBody,
+        @Part("time") time: RequestBody, @Part("fromname") fromname: RequestBody,
+        @Part("toname") toname: RequestBody, @Part file: MultipartBody.Part?
     ): Observable<List<ServerResponseModel>>
 
 }

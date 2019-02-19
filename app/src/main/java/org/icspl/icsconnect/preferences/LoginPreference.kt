@@ -1,9 +1,10 @@
+package org.icspl.icsconnect.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
 import org.icspl.icsconnect.R
 
-class LoginPreference(context: Context) {
+public class LoginPreference(context: Context) {
     var sharedPreferences: SharedPreferences? = null
 
     init {

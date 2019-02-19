@@ -1,14 +1,20 @@
 package org.icspl.icsconnect.utils
 
+import android.content.Context
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.net.ConnectivityManager
 import android.util.Log
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.icspl.icsconnect.R
 import org.icspl.icsconnect.callbacks.ApiService
 import org.icspl.icsconnect.networking.RetrofitClient
 import java.io.File
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class Common {
 
@@ -19,6 +25,17 @@ class Common {
         public fun getAPI(): ApiService {
             return RetrofitClient.getClient(BASE_URL).create(ApiService::class.java)
         }
+
+        public fun isConnectedMobile(context: Context): Boolean {
+
+            val connectivityManager = context.getSystemService(CONNECTIVITY_SERVICE)
+                    as ConnectivityManager?
+
+            val networkInfo = connectivityManager!!.activeNetworkInfo
+
+            return networkInfo != null && networkInfo.isConnected
+        }
+
     }
 
     fun convertMultipart(imagePath: String?, paramName: String): MultipartBody.Part {
@@ -60,6 +77,20 @@ class Common {
     public fun getTime(): String {
         val mSDF = SimpleDateFormat("HH:mm", Locale.getDefault())
         return mSDF.format(Date())
+    }
+
+    fun getDownloadSpeedString(context: Context, downloadedBytesPerSecond: Long): String {
+        if (downloadedBytesPerSecond < 0) {
+            return ""
+        }
+        val kb = downloadedBytesPerSecond.toDouble() / 1000.toDouble()
+        val mb = kb / 1000.toDouble()
+        val decimalFormat = DecimalFormat(".##")
+        return when {
+            mb >= 1 -> context.getString(R.string.downloadSpeedMb, decimalFormat.format(mb))
+            kb >= 1 -> context.getString(R.string.downloadSpeedKb, decimalFormat.format(kb))
+            else -> context.getString(R.string.downloadSpeedBytes, downloadedBytesPerSecond)
+        }
     }
 
 }

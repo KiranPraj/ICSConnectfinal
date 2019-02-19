@@ -4,6 +4,11 @@
     <item android:id="@+id/menu_close"
           android:icon="@drawable/ic_close"
           android:title="@string/clos_querye"
-          app:showAsAction="ifRoom|withText"/>
+          app:showAsAction="withText"/>
+    <item android:id="@+id/menu_group"
+          android:icon="@drawable/bg_chat_me"
+          android:title="@string/group"
+          android:enabled="true"
+          app:showAsAction="withText"/>
 
 </menu>

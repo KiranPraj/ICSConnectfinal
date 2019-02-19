@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_marginTop="?android:attr/actionBarSize"
+              android:layout_height="match_parent">
+    <LinearLayout
+            android:id="@+id/ll_create_groups"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_create_groups"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:text="@string/create_groups"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                app:icon="@drawable/ic_create_groups"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_view_groups"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:text="@string/all_groups"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                app:icon="@drawable/ic_group_all"/>
+    </LinearLayout>
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            app:cardElevation="8dp"
+            android:id="@+id/ll_create_groups_body"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardMaxElevation="4dp"
+            app:strokeColor="@color/colorTextBlack"
+            app:strokeWidth="4dp"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:hint="@string/group_name"
+                    android:id="@+id/til_group_name"
+                    android:gravity="center"
+                    android:textColorHint="@color/colorPrimary"
+                    app:counterEnabled="true"
+                    android:layout_margin="16dp"
+                    app:counterMaxLength="15"
+                    app:counterTextColor="@color/colorPrimary"
+                    app:counterTextAppearance="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    app:errorEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:id="@+id/et_group_name"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/colorTextBlack"
+                        android:textColor="@color/colorTextBlack"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:text="@string/add_admin"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        app:icon="@drawable/ic_person"/>
+
+                <org.icspl.icsconnect.utils.SearchableSpinner
+                        android:id="@+id/sp_add_admin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorPrimary"
+                        android:layout_margin="8dp"/>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/viewgrp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+            </com.google.android.material.chip.ChipGroup>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:text="@string/add_members"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        app:icon="@drawable/ic_person_add"/>
+
+                <org.icspl.icsconnect.utils.SearchableSpinner
+                        android:id="@+id/sp_add_members"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:textSize="18sp"
+                        android:layout_gravity="center"
+                        android:background="@color/colorPrimary"
+                        android:layout_margin="8dp"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/viewgrp_member"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+            </com.google.android.material.chip.ChipGroup>
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_create_grp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:text="@string/create_groups"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    app:icon="@android:drawable/ic_input_add"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>

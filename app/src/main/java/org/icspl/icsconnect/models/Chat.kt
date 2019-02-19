@@ -8,5 +8,6 @@ data class Chat(
     var type: String,
     var text: String,
     var time: String,
-    var photoPath: String
+    var photoPath: String,
+    var doccument: String?
 )

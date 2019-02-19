@@ -1,6 +1,5 @@
 package org.icspl.icsconnect.activity
 
-import LoginPreference
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_count_msgdetails.*
 import org.icspl.icsconnect.R
 import org.icspl.icsconnect.adapters.CountDetailsAdapter
 import org.icspl.icsconnect.models.CountMSGDetailsModel
+import org.icspl.icsconnect.preferences.LoginPreference
 import org.icspl.icsconnect.utils.Common
 
 class CountMSGDetailsActivity : AppCompatActivity(), CountDetailsAdapter.CounterListener {

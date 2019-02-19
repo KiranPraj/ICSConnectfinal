@@ -25,7 +25,7 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/h3"
                 android:background="@drawable/btn_grey"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:stateListAnimator="@null"
                 android:layout_centerInParent="true"/>
         <RelativeLayout
@@ -59,6 +59,16 @@
         </RelativeLayout>
     </RelativeLayout>
 
+    <ProgressBar
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress_chat"
+            style="@android:style/Widget.ProgressBar.Large.Inverse"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"/>
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -66,6 +76,5 @@
             android:layout_above="@id/rl_bottom"
             android:overScrollMode="never"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"/>
 </RelativeLayout>

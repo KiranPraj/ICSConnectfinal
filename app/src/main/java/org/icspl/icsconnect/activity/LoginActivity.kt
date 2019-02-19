@@ -1,6 +1,5 @@
 package org.icspl.icsconnect.activity
 
-import LoginPreference
 import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
@@ -20,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.icspl.icsconnect.MainActivity
 import org.icspl.icsconnect.R
 import org.icspl.icsconnect.models.EmployeeDetail
+import org.icspl.icsconnect.preferences.LoginPreference
 import org.icspl.icsconnect.utils.Common
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
                 bookITextView.visibility = View.GONE
                 loadingProgressBar.visibility = View.GONE
                 rootView.setBackgroundColor(ContextCompat.getColor(this@LoginActivity, R.color.colorSplashText))
-                bookIconImageView.setImageResource(R.drawable.ic_menu_gallery)
+                //bookIconImageView.setImageResource(R.drawable.ic_menu_gallery)
                 startAnimation()
             }
 
@@ -137,8 +137,8 @@ class LoginActivity : AppCompatActivity() {
                         mLoginPreference.savStringeData("id", strUsername)
                         mLoginPreference.savStringeData("password", password)
                         mLoginPreference.savStringeData("password", password)
-                        mLoginPreference.savStringeData("name", response.body()!!.name)
-                        mLoginPreference.savStringeData("photo", response.body()!!.photo)
+                        mLoginPreference.savStringeData("name", response.body()!!.employeeDetails[0].name)
+                        mLoginPreference.savStringeData("photo", response.body()!!.employeeDetails[0].photo)
                         startActivity(
                             Intent(
                                 this@LoginActivity, MainActivity

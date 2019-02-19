@@ -10,7 +10,7 @@ public class EmployeeDetail {
 
     @SerializedName("EmployeeDetails")
     @Expose
-    private List<EmployeeDetail> employeeDetails = null;
+    public List<EmployeeDetail> employeeDetails = null;
 
     @SerializedName("photo")
     @Expose

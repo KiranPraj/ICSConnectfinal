@@ -1,31 +1,27 @@
 package org.icspl.icsconnect.fragments
 
-import LoginPreference
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log.i
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_opend_count.*
 import kotlinx.android.synthetic.main.fragment_opend_count.view.*
-import org.icspl.icsconnect.R
 import org.icspl.icsconnect.activity.CountMSGDetailsActivity
 import org.icspl.icsconnect.adapters.OpenedCountAdapter
 import org.icspl.icsconnect.models.CountMSGDetailsModel
 import org.icspl.icsconnect.models.CountMSGModel
+import org.icspl.icsconnect.preferences.LoginPreference
 import org.icspl.icsconnect.utils.Common
 import java.io.File
-import android.view.MenuInflater
-
 
 
 class OpenedCountFragment : androidx.fragment.app.Fragment(), OpenedCountAdapter.CounterListener {
@@ -59,6 +55,7 @@ class OpenedCountFragment : androidx.fragment.app.Fragment(), OpenedCountAdapter
 
     private fun fetchCountMsgs() {
 
+        mView.progress_open.visibility = View.VISIBLE
         mDisposable.add(
             mService.getCountMSg(mLoginPreference.getStringData("id", "ICS/123")!!)
                 .subscribeOn(Schedulers.io())
@@ -90,8 +87,10 @@ class OpenedCountFragment : androidx.fragment.app.Fragment(), OpenedCountAdapter
                         mAdapter.notifyDataSetChanged()
                     } else
                         i(TAG, "Null Data:")
+                    progress_open.visibility = View.GONE
                 }, { throwable ->
                     i(TAG, throwable.message)
+                    progress_open.visibility = View.GONE
                 })
         )
 
@@ -102,7 +101,7 @@ class OpenedCountFragment : androidx.fragment.app.Fragment(), OpenedCountAdapter
         //questionsList = arrayListOf()
         val mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(
             mContext,
-            androidx.recyclerview.widget.LinearLayoutManager.VERTICAL,
+            RecyclerView.VERTICAL,
             false
         )
         mView.rv_groups.layoutManager = mLayoutManager
@@ -128,10 +127,12 @@ class OpenedCountFragment : androidx.fragment.app.Fragment(), OpenedCountAdapter
             toID = mLoginPreference.getStringData("id", "ICS/123")!!
             fromId = id
         } else {
-            fromId =mLoginPreference.getStringData("id", "ICS/123")!!
+            fromId = mLoginPreference.getStringData("id", "ICS/123")!!
             toID = id
         }
         var mList = arrayListOf<CountMSGDetailsModel.IndividualDetail>()
+
+        progress_open.visibility = View.VISIBLE
         mDisposable.add(
             mService.getCountDetails(fromId, toID)
                 .subscribeOn(Schedulers.io())
@@ -146,13 +147,16 @@ class OpenedCountFragment : androidx.fragment.app.Fragment(), OpenedCountAdapter
 
                             }
                         }
+                        progress_open.visibility = View.GONE
                         startActivity(
                             Intent(mContext, CountMSGDetailsActivity::class.java)
                                 .putExtra("data", mList)
                         )
                     } else
                         i(TAG, "Null Data:")
+                    progress_open.visibility = View.GONE
                 }, { throwable ->
+                    progress_open.visibility = View.GONE
                     i(TAG, throwable.message)
                 })
         )

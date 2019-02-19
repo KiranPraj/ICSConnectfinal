@@ -15,10 +15,40 @@
     <string name="connect_us">Connect Your Query</string>
     <string name="count_fragment">Counting_FRAG</string>
     <string name="login">Login</string>
+    <string name="error_file_executong">Error : while capturing your File</string>
+    <string name="downloadSpeedBytes">%1$d B</string>
+    <string name="downloadSpeedKb">%1$s KB</string>
+    <string name="downloadSpeedMb">%1$s MB</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dots">…</string>
     <string name="close">Close</string>
-    <string name="clos_querye">Close_Query</string>
+    <string name="clos_querye">Close Query</string>
+    <string name="search_op_name">Search Opposite Name</string>
+
+    //encoded strings for documents
+    <string name="fa_audio">&#xf1c7;</string>
+    <string name="fa_video">&#xf1c8;</string>
+    <string name="fa_image">&#xf1c5;</string>
+    <string name="fa_word">&#xf1c2;</string>
+    <string name="fa_pdf">&#xf1c1;</string>
+    <string name="fa_excel">&#xf1c3;</string>
+    <string name="fa_ppt">&#xf1c4;</string>
+    <string name="fa_text">&#xf0f6;</string>
+    <string name="fa_zip">&#xf1c6;</string>
+    <string name="fa_download">&#xf019;</string>
+    <string name="attached">Attached</string>
+    <string name="waiting_for_network">Waiting for Network</string>
+    <string name="choose_photo">Choose Photo</string>
+    <string name="doccuments">Doccuments</string>
+    <string name="close_query">Close Query</string>
+    <string name="group">My Groups</string>
+    <string name="create_groups">Create Groups</string>
+    <string name="all_groups">View All Groups</string>
+    <string name="master_admin_frag">Master_Admin_Fragment</string>
+    <string name="group_name">Group Name</string>
+    <string name="add_admin">Add Admin</string>
+    <string name="add_members">Add Members</string>
 </resources>

@@ -43,6 +43,6 @@ class ConversationModel {
         var srNo: Int? = null
         @SerializedName("File_att")
         @Expose
-        var fileAtt: Any? = null
+        var fileAtt: String? = null
     }
 }
