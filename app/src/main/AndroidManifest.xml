@@ -27,7 +27,6 @@
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <intent-filter>
@@ -38,6 +37,7 @@
                 android:name=".activity.ChatActivity"
                 android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".activity.GroupChatActivity"/>
 
         <service android:name=".services.MyFirebaseIDService">
             <intent-filter>

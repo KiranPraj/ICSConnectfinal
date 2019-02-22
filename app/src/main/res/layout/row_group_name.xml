@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:id="@+id/ll_root_grp_name"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_group_all" android:id="@+id/imageView3"
+                android:padding="8dp" android:layout_margin="4dp" android:layout_gravity="center"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/tv_iitem_group_name" tools:text="ABC Goroup"
+                android:textColor="#9BA7FF" android:padding="8dp" android:layout_margin="4dp"
+                android:layout_gravity="center" android:textSize="18sp" android:textStyle="bold"
+                android:fontFamily="sans-serif-black"/>
+    </LinearLayout>
+</LinearLayout>

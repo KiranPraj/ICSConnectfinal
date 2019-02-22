@@ -68,31 +68,6 @@ class CountMSGDetailsActivity : AppCompatActivity(), CountDetailsAdapter.Counter
         super.onPause()
     }
 
-    private fun fetchCountMsgs() {
-
-        mDisposable.add(
-            mService.getCountMSg(mLoginPreference.getStringData("id", "ICS/123")!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ s ->
-                    if (s != null) {
-                        s.countmessageList?.forEach {
-                            //  countList.add(it)
-
-                        }
-                        // countList.add(s.countmessageList!!.get(0))
-                        /*  s.countmessageList?.forEach {
-
-                          }*/
-                        // mAdapter.notifyDataSetChanged()
-                    } else
-                        Log.i(TAG, "Null Data:")
-                }, { throwable ->
-                    Log.i(TAG, throwable.message)
-                })
-        )
-
-    }
 
     // adapters  implemented methods
     override fun clickListenere(id: String, photo: String?, toemp: String?) {

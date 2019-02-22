@@ -47,17 +47,6 @@ interface ApiService {
     @GET("AllClosedMessages")
     fun allCloseQuery(@Query("id") empCode: String): Observable<CloseMessage>
 
-    // create group
-    @FormUrlEncoded
-    @POST("CreateGroup")
-    fun createGroup(
-        @Field("group_title") group_title: String,
-        @Field("masteradmin") masteradmin: String,
-        @Field("groupadmin") groupadmin: String,
-        @Field("members") members: String
-    ): Observable<List<ServerResponseModel>>
-
-
     // Close Individual Query
     @FormUrlEncoded
     @POST("MessageClosed")
@@ -72,5 +61,36 @@ interface ApiService {
         @Part("time") time: RequestBody, @Part("fromname") fromname: RequestBody,
         @Part("toname") toname: RequestBody, @Part file: MultipartBody.Part?
     ): Observable<List<ServerResponseModel>>
+
+    //**** Grps API ******\\
+    // create group
+    @FormUrlEncoded
+    @POST("CreateGroup")
+    fun createGroup(
+        @Field("group_title") group_title: String,
+        @Field("masteradmin") masteradmin: String,
+        @Field("groupadmin") groupadmin: String,
+        @Field("members") members: String
+    ): Observable<List<ServerResponseModel>>
+
+    @FormUrlEncoded
+    @POST("Get_Individual_groups")
+    fun getIndividualGroups(
+        @Field("memberid") memberId: String
+    ): Observable<IndividualGrpNameModel>
+
+    @Multipart
+    @POST("SendGroupMessage")
+    fun sendGroupMessage(
+        @Part("group_id") queryid: RequestBody,
+        @Part("message") remarks: RequestBody,
+        @Part file: MultipartBody.Part?
+    ): Observable<List<ServerResponseModel>>
+
+    @FormUrlEncoded
+    @POST("GetGroupMessages")
+    fun sendGroupMessage(
+        @Field("group_id") groupId: String): Observable<List<GrpConversationModel>>
+
 
 }

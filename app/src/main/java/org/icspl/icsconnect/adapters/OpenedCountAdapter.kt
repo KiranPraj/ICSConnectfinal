@@ -33,7 +33,6 @@ class OpenedCountAdapter(
         public var online_indicator: View
         public var v_dot_red: View
 
-
         init {
             tv_user_name = view.findViewById(R.id.tv_user_name)
             tv_last_chat = view.findViewById(R.id.tv_last_chat)

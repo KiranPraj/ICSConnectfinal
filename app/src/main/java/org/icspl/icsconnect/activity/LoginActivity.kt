@@ -36,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -128,14 +127,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun fetchLogin(strUsername: String, password: String) {
 
-
         mService.checkLogin(strUsername, password, token)
             .enqueue(object : Callback<EmployeeDetail> {
                 override fun onResponse(call: Call<EmployeeDetail>, response: Response<EmployeeDetail>) {
                     if (response.isSuccessful && response.body() != null) {
                         Toast.makeText(this@LoginActivity, "Login Success", Toast.LENGTH_LONG).show()
                         mLoginPreference.savStringeData("id", strUsername)
-                        mLoginPreference.savStringeData("password", password)
                         mLoginPreference.savStringeData("password", password)
                         mLoginPreference.savStringeData("name", response.body()!!.employeeDetails[0].name)
                         mLoginPreference.savStringeData("photo", response.body()!!.employeeDetails[0].photo)

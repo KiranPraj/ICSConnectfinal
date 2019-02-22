@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
 import com.google.android.material.chip.Chip
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,11 +18,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.content_conversation.*
 import kotlinx.android.synthetic.main.fragment_master_admin.*
 import kotlinx.android.synthetic.main.fragment_master_admin.view.*
-import kotlinx.android.synthetic.main.fragment_opend_count.*
-import kotlinx.android.synthetic.main.fragment_opend_count.view.*
 import org.icspl.icsconnect.R
-import org.icspl.icsconnect.adapters.OpenedCountAdapter
-import org.icspl.icsconnect.models.CountMSGModel
 import org.icspl.icsconnect.preferences.LoginPreference
 import org.icspl.icsconnect.utils.Common
 import org.icspl.icsconnect.utils.SearchableSpinner
@@ -31,13 +26,10 @@ import org.icspl.icsconnect.utils.SearchableSpinner
 
 class MasterAdminFragment : androidx.fragment.app.Fragment() {
 
-
     private lateinit var mView: View
     private lateinit var mContext: Context
-    private lateinit var mAdapter: OpenedCountAdapter
     private val mDisposable = CompositeDisposable()
     private val mService by lazy { Common.getAPI() }
-    var countList = arrayListOf<CountMSGModel.Countmessage>()
     private val mLoginPreference by lazy { LoginPreference.getInstance(mContext) }
     private lateinit var mAdminList: MutableSet<String>
 
@@ -55,58 +47,16 @@ class MasterAdminFragment : androidx.fragment.app.Fragment() {
         return mView
     }
 
-    private fun fetchCountMsgs() {
-
-        mView.progress_open.visibility = View.VISIBLE
-        mDisposable.add(
-            mService.getCountMSg(mLoginPreference.getStringData("id", "ICS/123")!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ s ->
-                    if (s != null) {
-                        s.countmessageList?.forEach {
-                            countList.add(it)
-                        }
-                        mAdapter.notifyDataSetChanged()
-                        s.sendbyyou?.forEach {
-
-                            val sby = CountMSGModel().Countmessage()
-                            sby.fromEmpName = it.toEmpName
-                            sby.fromemp = it.toemp
-                            sby.msgCount = it.countmessage
-                            sby.photo = it.photo
-                            sby.toemp = it.fromemp
-                            sby.isIAm = true
-
-                            i(TAG, "${it.photo}")
-                            countList.add(sby)
-                        }
-
-                        // countList.add(s.countmessageList!!.get(0))
-                        /*  s.countmessageList?.forEach {
-
-                          }*/
-                        mAdapter.notifyDataSetChanged()
-                    } else
-                        i(TAG, "Null Data:")
-                    progress_open.visibility = View.GONE
-                }, { throwable ->
-                    i(TAG, throwable.message)
-                    progress_open.visibility = View.GONE
-                })
-        )
-
-    }
-
     private fun init() {
         mContext = mView.context
-        //questionsList = arrayListOf()
-        val mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(
-            mContext,
-            RecyclerView.VERTICAL,
-            false
-        )
+
         mView.ll_create_groups_body.visibility = View.GONE
+        mView.btn_view_groups.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.group_container, GrpNameFragmentFragment(), getString(R.string.master_admin_frag))
+                .commit()
+        }
+
         mView.btn_create_groups.setOnClickListener {
             mView.ll_create_groups.postDelayed(
                 {
@@ -140,9 +90,6 @@ class MasterAdminFragment : androidx.fragment.app.Fragment() {
                     i(TAG, "Child Chip: ${chip.text}")
                     listMember.add(chip.text.toString())
                 }
-                i(TAG, "Admin: ${listAdmin.toTypedArray()}")
-                i(TAG, "Members: ${listMember}")
-
 
                 mDisposable.add(
                     mService.createGroup(
@@ -162,12 +109,7 @@ class MasterAdminFragment : androidx.fragment.app.Fragment() {
                 )
 
             }
-            /*mView.rv_groups.layoutManager = mLayoutManager
-            mView.rv_groups.itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
-            mAdapter = OpenedCountAdapter(countList, mContext, this)
-            mAdapter.notifyDataSetChanged()
-            mView.rv_groups.adapter = mAdapter
-            fetchCountMsgs()*/
+
         }
 
         /*  mView.btn_add_admin.setOnClickListener {
@@ -205,7 +147,7 @@ class MasterAdminFragment : androidx.fragment.app.Fragment() {
                         mAdminList.add("Select Members")
                         s.forEach {
                             mAdminList.add(it.id.toString())
-                            searchHashList.put(it.id.toString().plus("-").plus(it.name.toString()), it.id.toString())
+                            searchHashList[it.id.toString().plus("-").plus(it.name.toString())] = it.id.toString()
                         }
                         sp(mView.sp_add_members, searchHashList)
                         sp(mView.sp_add_admin, searchHashList)
@@ -218,7 +160,7 @@ class MasterAdminFragment : androidx.fragment.app.Fragment() {
                                         LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
                                     )
                                     layoutParams.setMargins(10, 20, 10, 10)
-                                    chip.setLayoutParams(layoutParams)
+                                    chip.layoutParams = layoutParams
 
                                     chip.isCloseIconVisible = true
                                     chip.closeIcon =
@@ -244,25 +186,28 @@ class MasterAdminFragment : androidx.fragment.app.Fragment() {
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                                 if (position > 0) {
                                     val chip = Chip(requireContext())
-                                    chip.text = searchHashList[(view as TextView).text.toString()]
+                                    chip.apply {
+                                        text = searchHashList[(view as TextView).text.toString()]
 
-                                    val layoutParams = LinearLayout.LayoutParams(
-                                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
-                                    )
-                                    layoutParams.setMargins(10, 20, 10, 10)
-                                    chip.setLayoutParams(layoutParams)
-                                    chip.isCloseIconVisible = true
-                                    chip.closeIcon =
-                                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_close_black_24dp)
-                                    chip.chipIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_person)
-                                    chip.setTextColor(Color.WHITE)
-                                    chip.setChipIconTintResource(R.color.colorGreen)
-
-                                    chip.setOnCloseIconClickListener {
-                                        TransitionManager.beginDelayedTransition(viewgrp_member)
-                                        viewgrp_member.removeView(chip)
+                                        val layoutParams = LinearLayout.LayoutParams(
+                                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                                            LinearLayout.LayoutParams.WRAP_CONTENT
+                                        )
+                                        layoutParams.setMargins(10, 20, 10, 10)
+                                        setLayoutParams(layoutParams)
+                                        isCloseIconVisible = true
+                                        closeIcon =
+                                            ContextCompat.getDrawable(requireContext(), R.drawable.ic_close_black_24dp)
+                                        chipIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_person)
+                                        setTextColor(Color.WHITE)
+                                        setChipIconTintResource(R.color.colorGreen)
+                                        setOnCloseIconClickListener {
+                                            TransitionManager.beginDelayedTransition(viewgrp_member)
+                                            viewgrp_member.removeView(chip)
+                                        }
+                                        mView.viewgrp_member.addView(chip)
                                     }
-                                    mView.viewgrp_member.addView(chip)
+
                                 }
                             }
 
@@ -282,7 +227,7 @@ class MasterAdminFragment : androidx.fragment.app.Fragment() {
 
     }
 
-    fun sp(sp: SearchableSpinner, searchHashList: MutableMap<String, String>) {
+    private fun sp(sp: SearchableSpinner, searchHashList: MutableMap<String, String>) {
 
         val roAdapter =
             ArrayAdapter<String>(

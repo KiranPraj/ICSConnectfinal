@@ -6,7 +6,9 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@android:color/white</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-        <item name="chipIconTint">@color/white</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
 
     </style>
     <style name="AppTheme.Trans" parent="AppTheme">
@@ -14,6 +16,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
+
     <style name="AppThemeFull.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
