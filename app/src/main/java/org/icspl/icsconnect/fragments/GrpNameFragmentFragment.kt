@@ -29,10 +29,12 @@ class GrpNameFragmentFragment : androidx.fragment.app.Fragment(), GroupNameAdapt
     private lateinit var mView: View
     private lateinit var mAdapter: GroupNameAdapter
     private var mNameList: MutableList<IndividualGrpNameModel>? = null
+ //   private lateinit var c
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         mView = inflater.inflate(R.layout.fragment_grpnamefragment_list, container, false)
 
@@ -49,6 +51,7 @@ class GrpNameFragmentFragment : androidx.fragment.app.Fragment(), GroupNameAdapt
 
 
     private fun getMemberGroupNames() {
+
         mView.pb_grp_name.visibility = View.VISIBLE
         mDisposable.add(
             mService.getIndividualGroups(
@@ -73,7 +76,7 @@ class GrpNameFragmentFragment : androidx.fragment.app.Fragment(), GroupNameAdapt
         mView.rv_group_name.hasFixedSize()
         mView.rv_group_name.layoutManager = LinearLayoutManager(
             requireContext(), RecyclerView.VERTICAL, false
-        )
+        ) as RecyclerView.LayoutManager?
         mView.rv_group_name.itemAnimator = DefaultItemAnimator()
         mAdapter = GroupNameAdapter(individualGroupsList!!, requireContext(), this@GrpNameFragmentFragment)
         mView.rv_group_name.adapter = mAdapter
@@ -85,7 +88,11 @@ class GrpNameFragmentFragment : androidx.fragment.app.Fragment(), GroupNameAdapt
         super.onStop()
     }
 
-    override fun GrpNameListener(id: String, photo: String?, isMineQuery: Boolean) {
+    override fun GrpNameListener(
+        id: String, photo: String?, isMineQuery: Boolean,
+        models: IndividualGrpNameModel.IndividualGroup
+    ) {
+        mLoginPreference.savStringeData("groupId", models.groupId!!)
         startActivity(Intent(requireActivity(), GroupChatActivity::class.java))
     }
 

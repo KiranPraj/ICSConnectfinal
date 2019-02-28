@@ -19,7 +19,10 @@ class GroupNameAdapter(
 ) : androidx.recyclerview.widget.RecyclerView.Adapter<GroupNameAdapter.ViewHolder>() {
 
     interface GrpNameCallback {
-        fun GrpNameListener(id: String, photo: String?, isMineQuery: Boolean)
+        fun GrpNameListener(
+            id: String, photo: String?, isMineQuery: Boolean,
+            models: IndividualGrpNameModel.IndividualGroup
+        )
     }
 
     inner class ViewHolder internal constructor(view: View) :
@@ -48,7 +51,7 @@ class GroupNameAdapter(
         val model = mList[holder.adapterPosition]
         holder.tv_iitem_group_name.text = model.groupTitle
         holder.ll_root_grp_name.setOnClickListener {
-            mCallback.GrpNameListener("abcd", "abcd", true)
+            mCallback.GrpNameListener("abcd", "abcd", true,mList.get(holder.adapterPosition))
         }
     }
 

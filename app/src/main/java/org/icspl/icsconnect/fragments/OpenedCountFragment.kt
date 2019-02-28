@@ -60,7 +60,7 @@ class OpenedCountFragment : androidx.fragment.app.Fragment(), OpenedCountAdapter
             mService.getCountMSg(mLoginPreference.getStringData("id", "ICS/123")!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ s ->
+                .subscribe({ s   ->
                     if (s != null) {
                         s.countmessageList?.forEach {
                             countList.add(it)

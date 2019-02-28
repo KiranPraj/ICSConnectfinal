@@ -1,6 +1,8 @@
 package org.icspl.icsconnect.activity
 
 import android.animation.Animator
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -55,7 +57,8 @@ class LoginActivity : AppCompatActivity() {
             override fun onTick(p0: Long) {}
         }.start()
 
-        if (mLoginPreference.getStringData("id", "") != null) {
+        if (mLoginPreference.getStringData("id","") != "") {
+            val v = mLoginPreference.getStringData("id","")
             startActivity(
                 Intent(
                     this@LoginActivity, MainActivity

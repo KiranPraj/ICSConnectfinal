@@ -103,15 +103,15 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
         setSupportActionBar(mToolbar)
 
 
-        /*  if (intent != null) {
+          if (intent != null) {
               photoPath = if (intent.getStringExtra("photo") != null) {
                   intent.getStringExtra("photo")
               } else {
                   ""
               }
-              queryId = intent.getStringExtra("queryId")
+              //queryId = intent.getStringExtra("queryId")
               toemp = intent.getStringExtra("toemp")
-          }*/
+          }
         supportActionBar!!.title = "Query Id"
 
         bt_attachment.setOnClickListener { checkPermissions() }
@@ -138,7 +138,7 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
         recyclerView.layoutManager = manager
         mAdapter = ChatAdapter(getConversations(), this@GroupChatActivity, this@GroupChatActivity)
 
-        //  recyclerView.setAdapter(mAdapter)
+        recyclerView.setAdapter(mAdapter)
         recyclerView.postDelayed(
             {
                // recyclerView.smoothScrollToPosition(recyclerView.getAdapter()!!.getItemCount() - 1)
@@ -156,8 +156,13 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
 
         })
         bt_send.setOnClickListener({
-            if (et_message.getText().toString() != "") {
+            if (et_message.text.toString() != "") {
                 sendMessages()
+            }
+            else{
+
+                Toast.makeText(this,"error message",Toast.LENGTH_SHORT).show()
+
             }
         })
 
@@ -178,20 +183,20 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
             body = MultipartBody.Part.createFormData("file", "", file)
         }
         val data = ArrayList<Chat>()
-//        val item = Chat("2", et_message.getText().toString(), Common().getTime(), photoPath, null)
+        val item = Chat("2", et_message.text.toString(), Common().getTime(), photoPath, null)
         progress_chat.visibility = View.VISIBLE
 
         mDisposable.add(
             mService.sendGroupMessage(
-                RequestBody.create(MediaType.parse("text/plain"), "360324"),
-                RequestBody.create(MediaType.parse("text/plain"), "Hello"),
+                RequestBody.create(MediaType.parse("text/plain"), mLoginPreference.getStringData("groupId","")!!),
+                RequestBody.create(MediaType.parse("text/plain"), et_message.text.toString()),
                 body
             )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ s ->
                     if (s != null) {
-                        /*if (s.get(0).response!! >= 1) {
+                        if (s.get(0).response!! >= 1) {
 
                             Toast.makeText(
                                 this@GroupChatActivity, "Query Sent Successfully",
@@ -206,7 +211,7 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
                             Toast.makeText(
                                 this@GroupChatActivity, "Query Failed to Send",
                                 Toast.LENGTH_SHORT
-                            ).show()*/
+                            ).show()
                         progress_chat.visibility = View.GONE
                     }
                 }, { throwable ->
@@ -308,7 +313,8 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
                     } else
                         Log.i(TAG, "Null Data:")
                     progress_chat.visibility = View.GONE
-                }, { throwable ->
+                },
+                    { throwable ->
                     run {
                         progress_chat.visibility = View.VISIBLE
                         Log.i(TAG, throwable.message)
