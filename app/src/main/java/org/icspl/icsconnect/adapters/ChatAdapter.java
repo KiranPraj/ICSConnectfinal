@@ -194,7 +194,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     }
                 });
 
-            Toast.makeText(mContext, "Holder You clicked", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(mContext, "Holder You clicked", Toast.LENGTH_SHORT).show();
 
         } else vh1.getLl_chat_attachment_you().setVisibility(View.GONE);
     }

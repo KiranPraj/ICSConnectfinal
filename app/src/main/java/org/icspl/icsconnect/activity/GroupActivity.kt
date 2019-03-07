@@ -5,16 +5,23 @@ import androidx.appcompat.app.AppCompatActivity
 import org.icspl.icsconnect.R
 import org.icspl.icsconnect.fragments.GrpNameFragmentFragment
 import org.icspl.icsconnect.fragments.MasterAdminFragment
+import android.content.Intent
+
+
+
 
 class GroupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_group)
+        setContentView(org.icspl.icsconnect.R.layout.activity_group)
+
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.group_container, MasterAdminFragment(), getString(R.string.master_admin_frag))
+            .add(org.icspl.icsconnect.R.id.group_container, MasterAdminFragment(), getString(org.icspl.icsconnect.R.string.master_admin_frag))
             .commit()
 
     }
+
+
 }

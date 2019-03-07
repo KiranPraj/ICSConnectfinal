@@ -83,6 +83,7 @@ class RaiseQueryActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(org.icspl.icsconnect.R.layout.activity_raise_query)
 
+
         //handleSearchChangeLisitenr()
         initSearchBar()
         btn_send_query.setOnClickListener { handleQuery() }
@@ -132,7 +133,7 @@ class RaiseQueryActivity : AppCompatActivity(),
                     mLoginPreference.getStringData("name", "")!!
                 ), RequestBody.create(
                     MediaType.parse("text/plain"),
-                    et_message_query.text.toString()
+                    searchHashList.get(0)!!.name.toString()
                 ),
                 body!!
             )
@@ -153,11 +154,11 @@ class RaiseQueryActivity : AppCompatActivity(),
     private fun initSearchBar() {
         searchBar = findViewById(org.icspl.icsconnect.R.id.searchView)
         searchBar.setHint(getString(R.string.search_op_name))
-        searchBar.inflateMenu(org.icspl.icsconnect.R.menu.menu_open)
+        // searchBar.inflateMenu(org.icspl.icsconnect.R.menu.menu_open)
         searchBar.setCardViewElevation(10)
         searchBar.setMaxSuggestionCount(10)
-        searchList.add("Sanjay")
-        searchList.add("Parmesh")
+        //searchList.add("Sanjay")
+        //searchList.add("Parmesh")
         searchBar.lastSuggestions = searchList
 
         searchBar.addTextChangeListener(object : TextWatcher {
@@ -201,9 +202,10 @@ class RaiseQueryActivity : AppCompatActivity(),
             override fun onSearchConfirmed(text: CharSequence?) {
                 i(TAG, "Search Confirmed")
                 setUpSearchObservable(text.toString())
+
             }
         })
-
+        searchBar.disableSearch()
     }
 
 

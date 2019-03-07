@@ -16,9 +16,14 @@ import org.icspl.icsconnect.activity.GroupActivity
 import org.icspl.icsconnect.activity.RaiseQueryActivity
 import org.icspl.icsconnect.fragments.OpenedCountFragment
 import org.icspl.icsconnect.preferences.LoginPreference
+import kotlin.system.exitProcess
+import android.R.id.edit
+import android.content.SharedPreferences
+import org.icspl.icsconnect.activity.LoginActivity
 
 
 class MainActivity : AppCompatActivity() {
+
     private val mLoginPreference by lazy { LoginPreference.getInstance(this@MainActivity) }
     private lateinit var mToolbar: Toolbar
     private lateinit var menu: Menu
@@ -35,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         mToolbar = findViewById(R.id.toolbar)
         setSupportActionBar(mToolbar)
         mToolbar.title = "Opend Query"
+        
+
 
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
@@ -60,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
         menuInflater.inflate(org.icspl.icsconnect.R.menu.menu_open, menu)
@@ -76,9 +84,26 @@ class MainActivity : AppCompatActivity() {
             R.id.menu_group -> {
                 startActivity(Intent(this@MainActivity, GroupActivity::class.java))
             }
+            R.id.Logout  ->{
+              var edit= mLoginPreference.sharedPreferences!!.edit()
+                  //edit.remove("id")
+                edit.clear()
+                edit.apply()
+
+                startActivity(Intent(this@MainActivity,LoginActivity::class.java))
+                this@MainActivity.finish()
+            }
         }
         return true
     }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finishAffinity()
+        this@MainActivity.finish()
 
+
+       // return
+
+    }
 
 }

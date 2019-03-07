@@ -55,13 +55,15 @@ class GrpNameFragmentFragment : androidx.fragment.app.Fragment(), GroupNameAdapt
         mView.pb_grp_name.visibility = View.VISIBLE
         mDisposable.add(
             mService.getIndividualGroups(
-                "ICSA/1633"// mLoginPreference.getStringData("id", "")!!
+                mLoginPreference.getStringData("id", "")!!
             )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ s ->
                     if (s != null) {
                         initRecyclerView(s.individualGroupsList)
+
+
                     } else {
                         Snackbar.make(mView.ll_grp_name, "No Data Found", Snackbar.LENGTH_LONG).show()
                     }
@@ -93,7 +95,11 @@ class GrpNameFragmentFragment : androidx.fragment.app.Fragment(), GroupNameAdapt
         models: IndividualGrpNameModel.IndividualGroup
     ) {
         mLoginPreference.savStringeData("groupId", models.groupId!!)
+        mLoginPreference.savStringeData("Group_admin",models.groupAdmin!!)
+        mLoginPreference.savStringeData("members",models.members!!)
         startActivity(Intent(requireActivity(), GroupChatActivity::class.java))
     }
+
+
 
 }

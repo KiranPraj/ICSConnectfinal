@@ -45,6 +45,7 @@
     <string name="doccuments">Doccuments</string>
     <string name="close_query">Close Query</string>
     <string name="group">My Groups</string>
+    <string name="logout">Logout</string>
     <string name="create_groups">Create Groups</string>
     <string name="all_groups">View All Groups</string>
     <string name="master_admin_frag">Master_Admin_Fragment</string>

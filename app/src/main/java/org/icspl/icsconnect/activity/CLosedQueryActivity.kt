@@ -32,6 +32,7 @@ class CLosedQueryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_closed_query)
 
+
         initViews()
     }
 

@@ -1,7 +1,6 @@
 package org.icspl.icsconnect.activity
 
 import android.animation.Animator
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,12 +11,15 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.view.Window
 import android.view.WindowManager
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.layout_holder_me.*
+import kotlinx.android.synthetic.main.layout_holder_you.*
 import org.icspl.icsconnect.MainActivity
 import org.icspl.icsconnect.R
 import org.icspl.icsconnect.models.EmployeeDetail
@@ -26,6 +28,10 @@ import org.icspl.icsconnect.utils.Common
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.content.Context.INPUT_METHOD_SERVICE
+import androidx.core.content.ContextCompat.getSystemService
+import android.view.inputmethod.InputMethodManager
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -57,14 +63,17 @@ class LoginActivity : AppCompatActivity() {
             override fun onTick(p0: Long) {}
         }.start()
 
-        if (mLoginPreference.getStringData("id","") != "") {
-            val v = mLoginPreference.getStringData("id","")
+        if (mLoginPreference.getStringData("id", "") != "") {
+            val v = mLoginPreference.getStringData("id", "")
             startActivity(
                 Intent(
                     this@LoginActivity, MainActivity
                     ::class.java
+
                 )
+
             )
+
         }
         loginButton!!.setOnClickListener { validateUserInput() }
     }
@@ -98,6 +107,9 @@ class LoginActivity : AppCompatActivity() {
 
     //start validation
     private fun validateUserInput() {
+        val mgr = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        mgr.hideSoftInputFromWindow(loginButton.getWindowToken(), 0)
+        loadingProgressBar.visibility=View.VISIBLE
         // validating user name and password Inputs
         val strUsername = login_email.text.toString()
         val password = login_password.text.toString()
@@ -110,17 +122,21 @@ class LoginActivity : AppCompatActivity() {
             l_pass!!.isErrorEnabled = false
         } else if (TextUtils.isEmpty(strUsername) && TextUtils.isEmpty(password)) {
             l_user!!.error = "Input required"
+            loadingProgressBar.visibility=View.GONE
             l_pass!!.error = "Input required"
             l_user!!.isErrorEnabled = true
             l_pass!!.isErrorEnabled = true
         } else if (TextUtils.isEmpty(strUsername)) {
+            loadingProgressBar.visibility=View.GONE
             l_user!!.error = "Input required"
             l_user!!.isErrorEnabled = true
         } else if (TextUtils.isEmpty(password)) {
+            loadingProgressBar.visibility=View.GONE
             l_user!!.error = "Input required"
             l_pass!!.isErrorEnabled = true
             l_user!!.isErrorEnabled = false
         } else {
+            loadingProgressBar.visibility=View.GONE
             l_pass!!.isErrorEnabled = false
             l_user!!.isErrorEnabled = false
         }
@@ -133,20 +149,34 @@ class LoginActivity : AppCompatActivity() {
         mService.checkLogin(strUsername, password, token)
             .enqueue(object : Callback<EmployeeDetail> {
                 override fun onResponse(call: Call<EmployeeDetail>, response: Response<EmployeeDetail>) {
-                    if (response.isSuccessful && response.body() != null) {
-                        Toast.makeText(this@LoginActivity, "Login Success", Toast.LENGTH_LONG).show()
-                        mLoginPreference.savStringeData("id", strUsername)
-                        mLoginPreference.savStringeData("password", password)
-                        mLoginPreference.savStringeData("name", response.body()!!.employeeDetails[0].name)
-                        mLoginPreference.savStringeData("photo", response.body()!!.employeeDetails[0].photo)
-                        startActivity(
-                            Intent(
-                                this@LoginActivity, MainActivity
-                                ::class.java
+                    try {
+                        if (response.isSuccessful && response.body()!!.employeeDetails.isNotEmpty()) {
+                         //   Toast.makeText(this@LoginActivity, ""+response.body(), Toast.LENGTH_LONG).show()
+                            mLoginPreference.savStringeData("id", strUsername)
+                            mLoginPreference.savStringeData("password", password)
+                            mLoginPreference.savStringeData("name", response.body()!!.employeeDetails[0].name)
+                            mLoginPreference.savStringeData("photo", response.body()!!.employeeDetails[0].photo)
+                            loadingProgressBar.visibility=View.GONE
+                            Toast.makeText(this@LoginActivity, "Login Success", Toast.LENGTH_LONG).show()
+                            startActivity(
+                                Intent(
+                                    this@LoginActivity, MainActivity
+                                    ::class.java
+                                )
                             )
-                        )
-                        //helliohh
-                    } else Toast.makeText(this@LoginActivity, "Login Failed", Toast.LENGTH_LONG).show()
+                            this@LoginActivity.finish()
+                            //helliohh this@MainActivity.finish()
+                        }
+                        else
+                        {
+                            loadingProgressBar.visibility=View.GONE
+                            Toast.makeText(this@LoginActivity, "Login Failed", Toast.LENGTH_LONG).show()
+                        }
+                    } catch (e: Exception) {
+                        loadingProgressBar.visibility=View.GONE
+                        e.message.toString()
+                        Toast.makeText(this@LoginActivity, "Login Failed", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 override fun onFailure(call: Call<EmployeeDetail>, t: Throwable) {

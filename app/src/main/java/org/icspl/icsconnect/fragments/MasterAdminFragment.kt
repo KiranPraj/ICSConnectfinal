@@ -93,14 +93,24 @@ class MasterAdminFragment : androidx.fragment.app.Fragment() {
 
                 mDisposable.add(
                     mService.createGroup(
-                        et_group_name.text.toString(), listAdmin.toString(), listAdmin.toString(),
+                        et_group_name.text.toString(),mLoginPreference.getStringData("id","")!!, listAdmin.toString(),
                         listMember.toString()
                     )
+
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ s ->
-                            if (s != null) {
-                                Toast.makeText(mContext, "Grp Created", Toast.LENGTH_LONG).show()
+                            if (s != null ) {
+                                if (s.get(0).response!! >= 1) {
+                                Toast.makeText(mContext, "Group Created", Toast.LENGTH_LONG).show()
+                            }
+                            else{
+
+                                    Toast.makeText(mContext,"Only Master Admin can create Group",Toast.LENGTH_LONG).show()
+                                }
+                            }
+                            else{
+                                Toast.makeText(mContext,"You cannot create group",Toast.LENGTH_LONG).show()
                             }
                         }, { throwable ->
                             //progress_chat.visibility = View.GONE
@@ -147,7 +157,7 @@ class MasterAdminFragment : androidx.fragment.app.Fragment() {
                         mAdminList.add("Select Members")
                         s.forEach {
                             mAdminList.add(it.id.toString())
-                            searchHashList[it.id.toString().plus("-").plus(it.name.toString())] = it.id.toString()
+                            searchHashList[it.id.toString().plus("- ").plus(it.name.toString())] = it.id.toString()
                         }
                         sp(mView.sp_add_members, searchHashList)
                         sp(mView.sp_add_admin, searchHashList)
@@ -186,27 +196,27 @@ class MasterAdminFragment : androidx.fragment.app.Fragment() {
                             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                                 if (position > 0) {
                                     val chip = Chip(requireContext())
-                                    chip.apply {
-                                        text = searchHashList[(view as TextView).text.toString()]
+
+                                    chip.text = searchHashList[(view as TextView).text.toString()]
 
                                         val layoutParams = LinearLayout.LayoutParams(
                                             LinearLayout.LayoutParams.WRAP_CONTENT,
                                             LinearLayout.LayoutParams.WRAP_CONTENT
                                         )
                                         layoutParams.setMargins(10, 20, 10, 10)
-                                        setLayoutParams(layoutParams)
-                                        isCloseIconVisible = true
-                                        closeIcon =
+                                      chip.setLayoutParams(layoutParams)
+                                    chip.isCloseIconVisible = true
+                                    chip.closeIcon =
                                             ContextCompat.getDrawable(requireContext(), R.drawable.ic_close_black_24dp)
-                                        chipIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_person)
-                                        setTextColor(Color.WHITE)
-                                        setChipIconTintResource(R.color.colorGreen)
-                                        setOnCloseIconClickListener {
+                                    chip.chipIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_person)
+                                    chip.setTextColor(Color.WHITE)
+                                    chip.setChipIconTintResource(R.color.colorGreen)
+                                    chip.setOnCloseIconClickListener {
                                             TransitionManager.beginDelayedTransition(viewgrp_member)
                                             viewgrp_member.removeView(chip)
                                         }
                                         mView.viewgrp_member.addView(chip)
-                                    }
+
 
                                 }
                             }

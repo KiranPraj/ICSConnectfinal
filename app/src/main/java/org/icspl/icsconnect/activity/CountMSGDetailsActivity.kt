@@ -36,6 +36,7 @@ class CountMSGDetailsActivity : AppCompatActivity(), CountDetailsAdapter.Counter
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_count_msgdetails)
 
+
         if (intent != null) {
             mList = intent.getParcelableArrayListExtra("data")
         }

@@ -92,6 +92,7 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+
         initView()
 
 
@@ -101,8 +102,12 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
     private fun initView() {
         mToolbar = findViewById(R.id.toolbar)
         setSupportActionBar(mToolbar)
-
-
+            var strid=mLoginPreference.getStringData("id","")!!
+            var members=mLoginPreference.getStringData("members","")!!
+            if(members.contains(strid))
+            {
+                rl_bottom.visibility=View.GONE
+            }
           if (intent != null) {
               photoPath = if (intent.getStringExtra("photo") != null) {
                   intent.getStringExtra("photo")
@@ -157,6 +162,7 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
         })
         bt_send.setOnClickListener({
             if (et_message.text.toString() != "") {
+
                 sendMessages()
             }
             else{
@@ -297,19 +303,22 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
         val data = ArrayList<Chat>()
         progress_chat.visibility = View.VISIBLE
         mDisposable.add(
-            mService.sendGroupMessage("194253")
+            mService.GetGroupMessage(mLoginPreference.getStringData("groupId","")!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ s ->
                     if (s != null) {
-                        s[0].groupMessages?.forEach {
-                            /* val fromTo =
-                                 if (mLoginPreference.getStringData("id", "")!! == it.toemp) "1" else "2"
-                            */
-                            val item = Chat("0", it.qMessage, "", it.qAttachment,"")
-                            data.add(item)
-                        }
+                        progress_chat.visibility = View.GONE
+                        s.groupMessages?.forEach {
+                            val fromTo =
+                                 if (mLoginPreference.getStringData("Group_id", "")!! == it.groupId) "1" else "1"
 
+                            val item = Chat(fromTo,""+it.qMessage,""+it.qDate,""+it.qAttachment,"")
+                            data.add(item)
+
+                            progress_chat.visibility = View.GONE
+
+                        }
                     } else
                         Log.i(TAG, "Null Data:")
                     progress_chat.visibility = View.GONE

@@ -12,7 +12,7 @@ class ConversationModel {
     @Expose
     var ShowCloseButton: List<ChatMessage>? = null
 
-    inner class ChatMessage {
+        inner class ChatMessage {
 
         @SerializedName("Queryid")
         @Expose

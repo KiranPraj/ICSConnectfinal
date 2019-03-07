@@ -10,5 +10,10 @@
           android:title="@string/group"
           android:enabled="true"
           app:showAsAction="withText"/>
+    <item android:id="@+id/Logout"
+          android:icon="@drawable/bg_chat_me"
+          android:title="@string/logout"
+          android:enabled="true"
+          app:showAsAction="withText"/>
 
 </menu>

@@ -58,8 +58,8 @@ interface ApiService {
     fun postQuery(
         @Part("fromemp") fromemp: RequestBody, @Part("toemp") toemp: RequestBody,
         @Part("remark") remarks: RequestBody,
-        @Part("time") time: RequestBody, @Part("fromname") fromname: RequestBody,
-        @Part("toname") toname: RequestBody, @Part file: MultipartBody.Part?
+        @Part("time") time: RequestBody, @Part("fromempname") fromempname: RequestBody,
+        @Part("toempname") toempname: RequestBody, @Part file: MultipartBody.Part?
     ): Observable<List<ServerResponseModel>>
 
     //**** Grps API ******\\
@@ -87,10 +87,10 @@ interface ApiService {
         @Part file: MultipartBody.Part?
     ): Observable<List<ServerResponseModel>>
 
-    @FormUrlEncoded
-    @POST("GetGroupMessages")
-    fun sendGroupMessage(
-        @Field("group_id") groupId: String): Observable<List<GrpConversationModel>>
+   // @FormUrlEncoded
+    @GET("GetGroupMessages")
+    fun GetGroupMessage(
+        @Query("group_id") groupId: String): Observable<GrpConversationModel>
 
 
 }

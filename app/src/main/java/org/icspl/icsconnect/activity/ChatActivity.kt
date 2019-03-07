@@ -93,6 +93,7 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+
         initView()
 
 

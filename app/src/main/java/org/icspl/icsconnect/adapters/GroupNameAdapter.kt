@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import org.icspl.icsconnect.R
 import org.icspl.icsconnect.models.IndividualGrpNameModel
@@ -29,17 +31,33 @@ class GroupNameAdapter(
         androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
         public var tv_iitem_group_name: TextView
         public var ll_root_grp_name: LinearLayout
+        public var checkbox: CheckBox
 
 
         init {
             tv_iitem_group_name = view.findViewById(R.id.tv_iitem_group_name)
             ll_root_grp_name = view.findViewById(R.id.ll_root_grp_name)
+
+            checkbox = view.findViewById(R.id.checkbox)
+            checkbox.visibility = View.GONE
+
+
+            view.setOnLongClickListener(View.OnLongClickListener {
+
+                checkbox.visibility = View.VISIBLE
+
+
+
+                return@OnLongClickListener true
+            })
+            checkbox.visibility=View.GONE
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.row_group_name, parent, false)
+
         return ViewHolder(itemView)
     }
 
@@ -51,7 +69,10 @@ class GroupNameAdapter(
         val model = mList[holder.adapterPosition]
         holder.tv_iitem_group_name.text = model.groupTitle
         holder.ll_root_grp_name.setOnClickListener {
-            mCallback.GrpNameListener("abcd", "abcd", true,mList.get(holder.adapterPosition))
+
+            mCallback.GrpNameListener("abcd", "abcd", true, mList.get(holder.adapterPosition))
+
+
         }
     }
 
