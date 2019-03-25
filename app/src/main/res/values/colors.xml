@@ -6,7 +6,9 @@
     <color name="colorTextBlack">#333333</color>
     <color name="colorTextHint">#E1E1E1</color>
     <color name="colorTextInfo">#9b9b9b</color>
-    <color name="colorGreen">#A5DE40</color>
+    <color name="colorGreen">#FFEB3B</color>
+    <color name="online">#A5DE40</color>
+    <color name="yellow">#FFEB3B</color>
     <color name="navColor">#80FFFFFF</color>
 
     <color name="colorBackground">#333C46</color>

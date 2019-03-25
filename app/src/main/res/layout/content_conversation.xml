@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <RelativeLayout
             android:id="@+id/rl_bottom"
@@ -18,12 +18,12 @@
             android:focusableInTouchMode="true">
         <Button
                 android:id="@+id/bt_send"
-                android:layout_width="60dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Send"
                 android:textColor="@color/colorAccent"
-                android:textSize="@dimen/h3"
+                android:textSize="10sp"
                 android:background="@drawable/btn_grey"
                 android:layout_alignParentEnd="true"
                 android:stateListAnimator="@null"
@@ -72,9 +72,10 @@
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_above="@id/rl_bottom"
             android:overScrollMode="never"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true" android:layout_marginTop="0dp" android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"/>
 </RelativeLayout>

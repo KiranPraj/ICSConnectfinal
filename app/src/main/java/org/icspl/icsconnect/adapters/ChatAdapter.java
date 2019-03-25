@@ -15,6 +15,7 @@ import com.squareup.picasso.Target;
 import org.icspl.icsconnect.R;
 import org.icspl.icsconnect.models.Chat;
 import org.icspl.icsconnect.preferences.LoginPreference;
+import org.icspl.icsconnect.utils.Common;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -168,7 +169,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     @Override
                     public void onClick(View v) {
                         // TODO : Change download document Local URL to Server URL
-                           doccumentClickHandler.ClickImageCallback("http://www.africau.edu/images/default/sample.pdf" + items.get(position).getDoccument(), v);
+                           doccumentClickHandler.ClickImageCallback("http://icspl.org:5014/ICSConnect/"+ items.get(position).getDoccument(),v);
                     }
                 });
         } else vh1.getmAttachmentLayout().setVisibility(View.GONE);
@@ -190,7 +191,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     @Override
                     public void onClick(View v) {
                         // TODO : Change download document Local URL to Server URL
-                        doccumentClickHandler.ClickImageCallback("http://www.africau.edu/images/default/sample.pdf", v);
+                        doccumentClickHandler.ClickImageCallback("http://icspl.org:5014/ICSConnect/"  + items.get(position).getDoccument(),v);
                     }
                 });
 

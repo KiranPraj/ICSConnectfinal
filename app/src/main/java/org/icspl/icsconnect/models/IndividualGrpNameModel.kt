@@ -33,6 +33,10 @@ class IndividualGrpNameModel {
         @SerializedName("Members")
         @Expose
         var members: String? = null
+
+        var schecked:Boolean?=null
+
     }
+
 
 }

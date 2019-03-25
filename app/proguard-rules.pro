@@ -12,6 +12,21 @@
 #   public *;
 #}
 
+
+-keep class dmax.dialog.** {
+    *;
+}
+ -keep class javax.xml.crypto.dsig.** { *; }
+ -dontwarn javax.xml.crypto.dsig.**
+ -keep class javax.xml.crypto.** { *; }
+ -dontwarn javax.xml.crypto.**
+ -keep class org.spongycastle.** { *; }
+ -dontwarn org.spongycastle.**
+ -dontwarn okhttp3.**
+ -dontwarn okio.**
+ -dontwarn retrofit2.Platform$Java8
+
+
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable

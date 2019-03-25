@@ -13,7 +13,7 @@
             android:layout_height="60dp"
             android:layout_centerInParent="true"
             android:contentDescription="@null"
-            app:srcCompat="@drawable/ic_action_add"/>
+            app:srcCompat="@mipmap/icslogo"/>
 
     <TextView
             android:id="@+id/bookITextView"
@@ -26,17 +26,16 @@
             android:textColor="@color/colorSplashText"
             android:textSize="16sp"/>
 
-    <ProgressBar
-            android:id="@+id/loadingProgressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="-4dp"
-            android:foregroundGravity="bottom"
-            android:indeterminate="true"
-            android:padding="0dp"
-            android:theme="@style/ProgressBarStyle"/>
+    <!--<ProgressBar-->
+            <!--android:id="@+id/loadingProgressBar"-->
+            <!--style="?android:attr/progressBarStyleHorizontal"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="12dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_marginBottom="20dp"-->
+            <!--android:indeterminate="true"-->
+            <!--android:padding="0dp"-->
+            <!--android:theme="@style/ProgressBarStyle"/>-->
 
     <RelativeLayout
             android:id="@+id/afterAnimationView"
@@ -45,6 +44,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="130dp"
+            android:background="#E7FFEB3B"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/WelcomeTextView"
                 android:layout_marginTop="10dp"
-                android:text="@string/read_it_together"
+                android:text="ICS Connect"
                 android:textColor="@color/colorAccent"
                 android:textSize="15sp"/>
 
@@ -86,6 +86,7 @@
                     android:layout_above="@+id/loginButton"
                     android:layout_below="@+id/readItTogetherTextView"
                     android:gravity="center"
+                    android:background="@drawable/borderback"
                     android:orientation="vertical">
 
 
@@ -93,7 +94,8 @@
                         android:id="@+id/l_user"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textColorHint="@color/colorGreen"
+                        android:textColorHint="@color/colorPurpleLight"
+                        android:background="@color/white"
                         app:errorEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -103,8 +105,8 @@
                             android:hint="@string/prompt_email"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
-                            android:textColor="@color/colorGreen"
-                            android:textColorHint="@color/colorGreen"/>
+                            android:textColor="@color/colorTextBlack"
+                            android:textColorHint="@color/colorTextBlack"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -112,10 +114,12 @@
                         android:id="@+id/l_pass"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textColorHint="@color/colorGreen"
+                        android:textColorHint="@color/colorPurpleLight"
                         app:counterEnabled="true"
+                        android:background="@color/white"
                         app:counterMaxLength="8"
                         app:errorEnabled="false"
+                        app:passwordToggleTint="@color/colorPurpleDark"
                         app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -128,13 +132,23 @@
                             android:imeOptions="actionUnspecified"
                             android:inputType="textPassword"
                             android:maxLines="1"
-                            android:textColor="@color/colorGreen"
-                            android:textColorHint="@color/colorGreen"/>
+                            android:textColor="@color/colorTextBlack"
+                            android:textColorHint="@color/colorTextBlack"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
 
             </LinearLayout>
+            <ProgressBar
+                    android:id="@+id/loadingProgressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="20dp"
+                    android:indeterminate="true"
+                    android:padding="0dp"
+                    android:theme="@style/ProgressBarStyle"/>
         </androidx.cardview.widget.CardView>
 
         <Button

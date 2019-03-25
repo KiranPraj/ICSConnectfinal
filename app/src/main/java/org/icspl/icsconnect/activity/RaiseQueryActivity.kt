@@ -20,6 +20,7 @@ import android.text.format.DateFormat
 import android.util.Log
 import android.util.Log.i
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -46,6 +47,7 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.icspl.icsconnect.BuildConfig
+import org.icspl.icsconnect.MainActivity
 import org.icspl.icsconnect.R
 import org.icspl.icsconnect.models.SearchModel
 import org.icspl.icsconnect.preferences.LoginPreference
@@ -82,7 +84,7 @@ class RaiseQueryActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(org.icspl.icsconnect.R.layout.activity_raise_query)
-
+        progressrais.visibility=View.GONE
 
         //handleSearchChangeLisitenr()
         initSearchBar()
@@ -94,7 +96,7 @@ class RaiseQueryActivity : AppCompatActivity(),
 
     // prepare data to send to server
     private fun handleQuery() {
-
+        progressrais.visibility=View.VISIBLE
         if (et_message_query.text!!.isEmpty()) {
             Toast.makeText(this@RaiseQueryActivity, "Error", Toast.LENGTH_SHORT).show()
             til_raised.isErrorEnabled = true
@@ -114,6 +116,7 @@ class RaiseQueryActivity : AppCompatActivity(),
             val file = RequestBody.create(MultipartBody.FORM, "")
             body = MultipartBody.Part.createFormData("file", "", file)
         }
+
         mDisposeOn.add(
             mService.postQuery(
                 RequestBody.create(
@@ -133,7 +136,8 @@ class RaiseQueryActivity : AppCompatActivity(),
                     mLoginPreference.getStringData("name", "")!!
                 ), RequestBody.create(
                     MediaType.parse("text/plain"),
-                    searchHashList.get(0)!!.name.toString()
+                   // searchHashList.get(0)!!.name.toString()
+                    tv_rased_to.text.toString()
                 ),
                 body!!
             )
@@ -142,11 +146,21 @@ class RaiseQueryActivity : AppCompatActivity(),
                 .subscribe {
                     if (it != null) {
                         if (it[0].response!! >= 1) {
+
                             Toast.makeText(this@RaiseQueryActivity, "Query Raised Successfully", Toast.LENGTH_SHORT)
                                 .show()
+                            progressrais.visibility=View.GONE
+                            startActivity(
+                                Intent(
+                                    this@RaiseQueryActivity, MainActivity
+                                    ::class.java
+                                )
+                            )
+                            this@RaiseQueryActivity.finish()
                         } else
                             Toast.makeText(this@RaiseQueryActivity, "Failed to Raised Query", Toast.LENGTH_SHORT)
                                 .show()
+                        progressrais.visibility=View.GONE
                     }
                 })
     }
@@ -201,8 +215,9 @@ class RaiseQueryActivity : AppCompatActivity(),
 
             override fun onSearchConfirmed(text: CharSequence?) {
                 i(TAG, "Search Confirmed")
-                setUpSearchObservable(text.toString())
 
+                setUpSearchObservable(text.toString())
+                searchBar.disableSearch()
             }
         })
         searchBar.disableSearch()
@@ -377,7 +392,33 @@ searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 "application/vnd.ms-powerpoint",
                 "application/vnd.ms-excel",
                 "application/zip",
-                "audio/x-wav|text/plain"
+                "audio/x-wav|text/plain",
+
+
+                "application/msword",
+                "application/msword",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.template",
+                "application/vnd.ms-word.document.macroEnabled.12",
+                "application/vnd.ms-word.template.macroEnabled.12",
+                "application/vnd.ms-excel",
+                "application/vnd.ms-excel",
+                "application/vnd.ms-excel",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.template",
+                "application/vnd.ms-excel.sheet.macroEnabled.12",
+                "application/vnd.ms-excel.template.macroEnabled.12",
+                "application/vnd.ms-excel.addin.macroEnabled.12",
+                "application/vnd.ms-excel.sheet.binary.macroEnabled.12",
+                "application/vnd.ms-powerpoint",
+                "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                "application/vnd.openxmlformats-officedocument.presentationml.template",
+                "application/vnd.openxmlformats-officedocument.presentationml.slideshow",
+                "application/vnd.ms-powerpoint.addin.macroEnabled.12",
+                "application/vnd.ms-powerpoint.presentation.macroEnabled.12",
+                "application/vnd.ms-powerpoint.template.macroEnabled.12",
+                "application/vnd.ms-powerpoint.slideshow.macroEnabled.12",
+                "application/vnd.ms-access"
             )
             fileIntent.putExtra(Intent.EXTRA_MIME_TYPES, extraMimeTypes)
             startActivityForResult(fileIntent, DOCCUMENT_REQUEST_CODE)

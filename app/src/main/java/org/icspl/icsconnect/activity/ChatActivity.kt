@@ -40,7 +40,6 @@ import com.tonyodev.fetch2core.Func
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.activity_raise_query.*
 import kotlinx.android.synthetic.main.content_conversation.*
 import okhttp3.MediaType
@@ -112,7 +111,9 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
                 ""
             }
             queryId = intent.getStringExtra("queryId")
+
             toemp = intent.getStringExtra("toemp")
+
         }
         supportActionBar!!.title = "Query Id: $queryId"
 
@@ -187,6 +188,7 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
                 RequestBody.create(MediaType.parse("text/plain"), queryId),
                 RequestBody.create(MediaType.parse("text/plain"), mLoginPreference.getStringData("id", "")!!),
                 RequestBody.create(MediaType.parse("text/plain"), toemp!!),
+                RequestBody.create(MediaType.parse("text/plain"),mLoginPreference.getStringData("name","")),
                 RequestBody.create(MediaType.parse("text/plain"), et_message.text.toString()),
                 RequestBody.create(MediaType.parse("text/plain"), Common().getDateFormat()),
                 body
@@ -201,10 +203,13 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
                                 this@ChatActivity, "Query Sent Successfully",
                                 Toast.LENGTH_SHORT
                             ).show()
+
                             data.add(item)
                             mAdapter!!.addItem(data)
                             recyclerView.smoothScrollToPosition(recyclerView.getAdapter()!!.getItemCount() - 1)
                             et_message.setText("")
+                            finish()
+                            startActivity(intent)
                             progress_chat.visibility = View.GONE
                         } else
                             Toast.makeText(
@@ -225,8 +230,10 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
         menuInflater.inflate(org.icspl.icsconnect.R.menu.menu_open, menu)
         this.menu = menu
         item = menu.findItem(org.icspl.icsconnect.R.id.menu_close)
-        item = menu.findItem(org.icspl.icsconnect.R.id.menu_close).setVisible(false)
+        item = menu.findItem(org.icspl.icsconnect.R.id.Logout).setVisible(false)
+        item = menu.findItem(org.icspl.icsconnect.R.id.deletegrp).setVisible(false)
         return true
+
     }
 
     // file picker dialog
@@ -305,7 +312,7 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
                             i(TAG, "MESSAGE: " + it.remarks)
                             val fromTo =
                                 if (mLoginPreference.getStringData("id", "")!! == it.toemp) "1" else "2"
-                            val item = Chat(fromTo, it.remarks!!, it.sendfrm!!.drop(14), photoPath, it.fileAtt)
+                            val item = Chat(fromTo, it.remarks!!, it.sendfrm!!.replace("T","/"), photoPath, it.fileAtt)
                             data.add(item)
                         }
 
@@ -326,6 +333,9 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_close -> closeQuery()
+            R.id.menu_group -> {
+                startActivity(Intent(this@ChatActivity, GroupActivity::class.java))
+            }
         }
         return true
     }
@@ -392,7 +402,35 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
                 "application/vnd.ms-powerpoint",
                 "application/vnd.ms-excel",
                 "application/zip",
-                "audio/x-wav|text/plain"
+                "audio/x-wav|text/plain",
+
+
+                "application/msword",
+                "application/msword",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.template",
+                "application/vnd.ms-word.document.macroEnabled.12",
+                "application/vnd.ms-word.template.macroEnabled.12",
+                "application/vnd.ms-excel",
+                "application/vnd.ms-excel",
+                "application/vnd.ms-excel",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.template",
+                "application/vnd.ms-excel.sheet.macroEnabled.12",
+                "application/vnd.ms-excel.template.macroEnabled.12",
+                "application/vnd.ms-excel.addin.macroEnabled.12",
+                "application/vnd.ms-excel.sheet.binary.macroEnabled.12",
+                "application/vnd.ms-powerpoint",
+                "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                "application/vnd.openxmlformats-officedocument.presentationml.template",
+                "application/vnd.openxmlformats-officedocument.presentationml.slideshow",
+                "application/vnd.ms-powerpoint.addin.macroEnabled.12",
+                "application/vnd.ms-powerpoint.presentation.macroEnabled.12",
+                "application/vnd.ms-powerpoint.template.macroEnabled.12",
+                "application/vnd.ms-powerpoint.slideshow.macroEnabled.12",
+                "application/vnd.ms-access"
+
+
             )
             fileIntent.putExtra(Intent.EXTRA_MIME_TYPES, extraMimeTypes)
             startActivityForResult(fileIntent, DoccumentRequestCode)
@@ -708,8 +746,8 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
 
     // called by interface (Adapter)
     override fun ClickImageCallback(url: String?, v: View?) {
-        enqueueDownload("https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg")
-        urlDownload = "https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg"
+        enqueueDownload(url!!)
+        //urlDownload = url
     }
 
     //enquee download
@@ -779,7 +817,7 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
                         BuildConfig.APPLICATION_ID + ".provider", File(download.file)
                     );
 
-                intent.setDataAndType(dirUri, "${contentResolver.getType(dirUri)}/*")
+                intent.setDataAndType(dirUri, "${contentResolver.getType(dirUri)}")
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 

@@ -19,8 +19,8 @@ import java.util.*
 class Common {
 
     companion object {
-        private val BASE_URL = "http://192.168.0.243:99/Home/"
-        //private val BASE_URL = "http://icspl.org:5011/Home/"
+   //     private val BASE_URL = "http://192.168.0.243:99/Home/"
+       public val BASE_URL = "http://icspl.org:5005/Home/"
 
         public fun getAPI(): ApiService {
             return RetrofitClient.getClient(BASE_URL).create(ApiService::class.java)

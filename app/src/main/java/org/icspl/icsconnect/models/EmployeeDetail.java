@@ -21,5 +21,8 @@ public class EmployeeDetail {
     @SerializedName("name")
     @Expose
     public String name;
+    @SerializedName("masteradmin")
+    @Expose
+    public String masteradmin;
 
 }

@@ -34,6 +34,7 @@ interface ApiService {
         @Part("queryid") queryid: RequestBody,
         @Part("fromemp") fromemp: RequestBody,
         @Part("toemp") toemp: RequestBody,
+        @Part("toempname")toempname: RequestBody,
         @Part("remarks") remarks: RequestBody,
         @Part("sendfrm") sendfrm: RequestBody,
         @Part file: MultipartBody.Part?
@@ -51,14 +52,18 @@ interface ApiService {
     @FormUrlEncoded
     @POST("MessageClosed")
     fun closeQuery(@Field("queryid") name: String): Observable<List<ServerResponseModel>>
-
+    //delete group
+    @FormUrlEncoded
+    @POST("DeleteGroup")
+    fun deletegroup(@Field("groupid") name: String): Observable<List<ServerResponseModel>>
     // Post Query
     @Multipart
     @POST("QueryRaise")
     fun postQuery(
         @Part("fromemp") fromemp: RequestBody, @Part("toemp") toemp: RequestBody,
         @Part("remark") remarks: RequestBody,
-        @Part("time") time: RequestBody, @Part("fromempname") fromempname: RequestBody,
+        @Part("time") time: RequestBody,
+        @Part("fromempname") fromempname: RequestBody,
         @Part("toempname") toempname: RequestBody, @Part file: MultipartBody.Part?
     ): Observable<List<ServerResponseModel>>
 
@@ -70,7 +75,8 @@ interface ApiService {
         @Field("group_title") group_title: String,
         @Field("masteradmin") masteradmin: String,
         @Field("groupadmin") groupadmin: String,
-        @Field("members") members: String
+        @Field("members") members: String,
+        @Field("groupid") groupid:String
     ): Observable<List<ServerResponseModel>>
 
     @FormUrlEncoded
@@ -87,10 +93,17 @@ interface ApiService {
         @Part file: MultipartBody.Part?
     ): Observable<List<ServerResponseModel>>
 
+
    // @FormUrlEncoded
     @GET("GetGroupMessages")
     fun GetGroupMessage(
         @Query("group_id") groupId: String): Observable<GrpConversationModel>
 
-
+    @Multipart
+    @POST("sendMasterGroupMessage")
+    fun sendMasterGroupMessage(
+        @Part("mastergroupid") String: ArrayList<String>,
+        @Part("msg") remarks: RequestBody,
+        @Part file: MultipartBody.Part?
+    ): Observable<List<ServerResponseModel>>
 }

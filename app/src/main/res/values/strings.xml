@@ -26,7 +26,7 @@
     <string name="dots">…</string>
     <string name="close">Close</string>
     <string name="clos_querye">Close Query</string>
-    <string name="search_op_name">Search Opposite Name</string>
+    <string name="search_op_name">Search Name</string>
 
     //encoded strings for documents
     <string name="fa_audio">&#xf1c7;</string>
@@ -44,6 +44,7 @@
     <string name="choose_photo">Choose Photo</string>
     <string name="doccuments">Doccuments</string>
     <string name="close_query">Close Query</string>
+    <string name="delete_group">Delete group</string>
     <string name="group">My Groups</string>
     <string name="logout">Logout</string>
     <string name="create_groups">Create Groups</string>

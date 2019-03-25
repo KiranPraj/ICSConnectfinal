@@ -31,6 +31,7 @@ import retrofit2.Response
 import android.content.Context.INPUT_METHOD_SERVICE
 import androidx.core.content.ContextCompat.getSystemService
 import android.view.inputmethod.InputMethodManager
+import org.icspl.icsconnect.preferences.Preferencetoken
 
 
 class LoginActivity : AppCompatActivity() {
@@ -39,23 +40,25 @@ class LoginActivity : AppCompatActivity() {
     private val mService by lazy { Common.getAPI() }
     private val mLoginPreference by lazy { LoginPreference.getInstance(this@LoginActivity) }
     lateinit var token: String
+    private val mPreferencetoken by lazy { Preferencetoken.getInstance(this@LoginActivity) }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+     //   requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN
+//        )
         token = gettoken()
         setContentView(R.layout.activity_login)
         object : CountDownTimer(2000, 1000) {
             override fun onFinish() {
                 bookITextView.visibility = View.GONE
                 loadingProgressBar.visibility = View.GONE
-                rootView.setBackgroundColor(ContextCompat.getColor(this@LoginActivity, R.color.colorSplashText))
+                rootView.setBackgroundColor(ContextCompat.getColor(this@LoginActivity, R.color.yellow))
                 //bookIconImageView.setImageResource(R.drawable.ic_menu_gallery)
                 startAnimation()
             }
@@ -155,16 +158,25 @@ class LoginActivity : AppCompatActivity() {
                             mLoginPreference.savStringeData("id", strUsername)
                             mLoginPreference.savStringeData("password", password)
                             mLoginPreference.savStringeData("name", response.body()!!.employeeDetails[0].name)
-                            mLoginPreference.savStringeData("photo", response.body()!!.employeeDetails[0].photo)
+                            mLoginPreference.savStringeData("masteradmin", response.body()!!.employeeDetails[0].masteradmin)
+                          if(response.body()!!.employeeDetails[0].photo== null){
+                              mLoginPreference.savStringeData("photo",R.drawable.bg_chat_img.toString())
+                          }else{
+                              mLoginPreference.savStringeData("photo", response.body()!!.employeeDetails[0].photo)
+
+                          }
                             loadingProgressBar.visibility=View.GONE
                             Toast.makeText(this@LoginActivity, "Login Success", Toast.LENGTH_LONG).show()
                             startActivity(
                                 Intent(
                                     this@LoginActivity, MainActivity
                                     ::class.java
+
                                 )
+
+
                             )
-                            this@LoginActivity.finish()
+
                             //helliohh this@MainActivity.finish()
                         }
                         else
@@ -193,21 +205,20 @@ class LoginActivity : AppCompatActivity() {
 
     private fun gettoken(): String {
         var token: String? = null
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    Log.w("TOKEN Failed", "getInstanceId failed", task.exception)
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener(OnCompleteListener {
+                if (!it.isSuccessful) {
+                    Log.w("TOKEN Failed", "getInstanceId failed", it.exception)
                     return@OnCompleteListener
                 }
                 // Get new Instance ID token
-                token = task.result!!.token
+                token = it.result!!.token
 
-                if (token != null) mLoginPreference.savStringeData("token", token!!)
+                if (token != null) mPreferencetoken.savStringeData("token", token!!)
 
                 Log.d(MainActivity.TAG, "Login Firebase Token: " + token)
             })
 
-        return mLoginPreference.getStringData("token", "")!!
+        return mPreferencetoken.getStringData("token", "")!!
     }
 }
 

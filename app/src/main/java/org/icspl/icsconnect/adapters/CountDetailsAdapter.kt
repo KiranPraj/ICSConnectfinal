@@ -10,13 +10,16 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import org.icspl.icsconnect.R
 import org.icspl.icsconnect.models.CountMSGDetailsModel
+import org.icspl.icsconnect.preferences.LoginPreference
 
 /**
  * Created by Suraj on 2/14/2018.
  */
 
 class CountDetailsAdapter(
-    private val mList: List<CountMSGDetailsModel.IndividualDetail>,
+
+
+private val mList: List<CountMSGDetailsModel.IndividualDetail>,
     private val mContext: Context,
     var mCallback: CounterListener
 ) : androidx.recyclerview.widget.RecyclerView.Adapter<CountDetailsAdapter.ViewHolder>() {
@@ -31,6 +34,7 @@ class CountDetailsAdapter(
         public var tv_last_chat: TextView
         public var iv_user_photo: ImageView
         public var tv_emp_id: TextView
+
 
 
         init {
@@ -53,7 +57,7 @@ class CountDetailsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        var k:String?
         val model = mList[holder.adapterPosition]
         holder.tv_count_msg.visibility = View.GONE
 
@@ -61,15 +65,26 @@ class CountDetailsAdapter(
         holder.tv_emp_id.text = model.fromemp
         holder.tv_last_chat.text = model.remarks?.take(36)?.replace("\n", "")
         holder.tv_emp_id.tag = model.queryid
-        // holder.tv_count_msg.text = model.fromemp
+         val mLoginPreference by lazy { LoginPreference.getInstance(mContext) }
 
+
+        var abc=mLoginPreference.getStringData("id","")
+        // holder.tv_count_msg.text = model.fromemp
+        if(abc.equals(model.toemp)){
+
+            k=model.fromemp
+        }
+        else{
+            k=model.toemp
+
+        }
         Picasso.get().load("http://icspl.org/data/Employeephoto/" + model.photoPath)
             .placeholder(R.drawable.ic_user)
             .error(R.drawable.ic_user)
             .into(holder.iv_user_photo)
 
         holder.itemView.setOnClickListener {
-            mCallback.clickListenere(holder.tv_emp_id.tag.toString(), model.photoPath, holder.tv_emp_id.text as String?)
+            mCallback.clickListenere(holder.tv_emp_id.tag.toString(), model.photoPath, k)
         }
     }
 

@@ -1,11 +1,13 @@
 package org.icspl.icsconnect
 
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.gms.tasks.OnCompleteListener
@@ -13,13 +15,10 @@ import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import org.icspl.icsconnect.activity.CLosedQueryActivity
 import org.icspl.icsconnect.activity.GroupActivity
+import org.icspl.icsconnect.activity.LoginActivity
 import org.icspl.icsconnect.activity.RaiseQueryActivity
 import org.icspl.icsconnect.fragments.OpenedCountFragment
 import org.icspl.icsconnect.preferences.LoginPreference
-import kotlin.system.exitProcess
-import android.R.id.edit
-import android.content.SharedPreferences
-import org.icspl.icsconnect.activity.LoginActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,8 +39,19 @@ class MainActivity : AppCompatActivity() {
         mToolbar = findViewById(R.id.toolbar)
         setSupportActionBar(mToolbar)
         mToolbar.title = "Opend Query"
-        
 
+        var context=this@MainActivity
+        val notificationManager = context
+            .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        val notificationIntent = Intent(context, MainActivity::class.java)
+
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+
+        val intent = PendingIntent.getActivity(
+            context, 0,
+            notificationIntent, 0
+        )
 
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
@@ -67,12 +77,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
         menuInflater.inflate(org.icspl.icsconnect.R.menu.menu_open, menu)
         this.menu = menu
         item = menu.findItem(org.icspl.icsconnect.R.id.menu_close)
+        item = menu.findItem(
+            org.icspl.icsconnect.R.id.deletegrp
+
+        ).setVisible(false)
         return true
     }
 
@@ -84,25 +97,28 @@ class MainActivity : AppCompatActivity() {
             R.id.menu_group -> {
                 startActivity(Intent(this@MainActivity, GroupActivity::class.java))
             }
-            R.id.Logout  ->{
-              var edit= mLoginPreference.sharedPreferences!!.edit()
-                  //edit.remove("id")
-                edit.clear()
+            R.id.Logout -> {
+                var edit = mLoginPreference.sharedPreferences!!.edit()
+                edit.remove("id")
+                //edit.clear()
                 edit.apply()
+var i = Intent (this@MainActivity,LoginActivity::class.java)
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
 
-                startActivity(Intent(this@MainActivity,LoginActivity::class.java))
-                this@MainActivity.finish()
+                startActivity(i)
+//                this@MainActivity.finish()
             }
         }
         return true
     }
+
     override fun onBackPressed() {
         super.onBackPressed()
         finishAffinity()
         this@MainActivity.finish()
 
 
-       // return
+        // return
 
     }
 

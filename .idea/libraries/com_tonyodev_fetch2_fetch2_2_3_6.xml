@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.tonyodev.fetch2:fetch2-2.3.6">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-fetch2-2.3.6.aar/32c76476245f54ba710369e1a242692f/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-fetch2-2.3.6.aar/32c76476245f54ba710369e1a242692f/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tonyodev.fetch2/fetch2/2.3.6/d86d8cbe4758cb0185483e6aced8926b78801da/fetch2-2.3.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

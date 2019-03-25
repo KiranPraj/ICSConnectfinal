@@ -77,6 +77,7 @@ class CountMSGDetailsActivity : AppCompatActivity(), CountDetailsAdapter.Counter
                 .putExtra("queryId", id)
                 .putExtra("photo", photo)
                 .putExtra("toemp", toemp)
+
         )
     }
 

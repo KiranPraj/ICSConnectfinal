@@ -54,7 +54,7 @@ class CLosedQueryActivity : AppCompatActivity() {
     private fun fetchClosedMSGData() {
         progress_close.visibility = View.VISIBLE
         mDisposable.add(
-            mService.allCloseQuery("ICS/167")
+            mService.allCloseQuery(mLoginPreference.getStringData("id","")!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ s ->

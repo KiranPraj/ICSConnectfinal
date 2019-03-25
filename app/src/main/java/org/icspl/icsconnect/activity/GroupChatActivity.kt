@@ -68,7 +68,7 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
     private val mService by lazy { Common.getAPI() }
     private var mAdapter: ChatAdapter? = null
     private lateinit var photoPath: String
-    private lateinit var queryId: String
+    private lateinit var groupid: String
     private var mToolbar: Toolbar? = null
     private lateinit var menu: Menu
     private var item: MenuItem? = null
@@ -80,6 +80,7 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
     private lateinit var request: Request
     private lateinit var progressBarMessage: TextView
     private lateinit var dialog: AlertDialog
+
 
     companion object {
         private val TAG = GroupChatActivity::class.java.simpleName
@@ -104,10 +105,15 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
         setSupportActionBar(mToolbar)
             var strid=mLoginPreference.getStringData("id","")!!
             var members=mLoginPreference.getStringData("members","")!!
-            if(members.contains(strid))
+
+
+        if(members.contains(strid))
             {
                 rl_bottom.visibility=View.GONE
+
+
             }
+
           if (intent != null) {
               photoPath = if (intent.getStringExtra("photo") != null) {
                   intent.getStringExtra("photo")
@@ -212,6 +218,8 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
                             mAdapter!!.addItem(data)
                             recyclerView.smoothScrollToPosition(recyclerView.getAdapter()!!.getItemCount() - 1)
                             et_message.setText("")
+                            finish()
+                            startActivity(intent)
                             progress_chat.visibility = View.GONE
                         } else
                             Toast.makeText(
@@ -231,7 +239,13 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
 
         menuInflater.inflate(org.icspl.icsconnect.R.menu.menu_open, menu)
         this.menu = menu
-        item = menu.findItem(org.icspl.icsconnect.R.id.menu_close)
+        var strid=mLoginPreference.getStringData("id","")!!
+        var master=mLoginPreference.getStringData("master_admin","")!!
+        if(strid!=master){
+            item=menu.findItem(org.icspl.icsconnect.R.id. deletegrp).setVisible(false)
+        }
+        item = menu.findItem(org.icspl.icsconnect.R.id.Logout).setVisible(false)
+        item = menu.findItem(org.icspl.icsconnect.R.id.menu_group).setVisible(false)
         item = menu.findItem(org.icspl.icsconnect.R.id.menu_close).setVisible(false)
         return true
     }
@@ -311,9 +325,9 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
                         progress_chat.visibility = View.GONE
                         s.groupMessages?.forEach {
                             val fromTo =
-                                 if (mLoginPreference.getStringData("Group_id", "")!! == it.groupId) "1" else "1"
+                                 if ((mLoginPreference.getStringData("master_admin", "")!! == mLoginPreference.getStringData("id", "")!!)||  mLoginPreference.getStringData("Admin", "")!!.contains( mLoginPreference.getStringData("id", "")!!)) "2" else "1"
 
-                            val item = Chat(fromTo,""+it.qMessage,""+it.qDate,""+it.qAttachment,"")
+                            val item = Chat(fromTo,""+it.qMessage,""+it.qDate,photoPath,it.qAttachment)
                             data.add(item)
 
                             progress_chat.visibility = View.GONE
@@ -336,13 +350,13 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.menu_close -> closeQuery()
+           R.id.deletegrp -> deleteGroup()
         }
         return true
     }
 
     // close query button click handler
-    private fun closeQuery() {
+    private fun deleteGroup() {
         //check for internet first
         if (!Common.isConnectedMobile(this@GroupChatActivity)) {
             Toast.makeText(this@GroupChatActivity, "Internet Required", Toast.LENGTH_LONG).show()
@@ -351,23 +365,24 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
 
         AlertDialog.Builder(this@GroupChatActivity)
             .setIcon(R.mipmap.ic_launcher)
-            .setTitle("Close Query")
-            .setMessage("Are you sure wants to Close the Query")
-            .setPositiveButton(getString(R.string.close_query)) { dialog, which ->
+            .setTitle("Delete group")
+            .setMessage("Are you sure wants to Delete the Group")
+            .setPositiveButton(getString(R.string.delete_group)) { dialog, which ->
                 dialog.dismiss()
                 var msg: String? = null
+                val gr =mLoginPreference.getStringData("groupid","")!!
                 progress_chat.visibility = View.VISIBLE
                 mDisposable.add(
-                    mService.closeQuery(queryId)
+                    mService.deletegroup(gr)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ s ->
                             s?.let {
                                 if (it.get(0).response!! >= 1) {
-                                    msg = "Query Closed Successfully"
+                                    msg = "Group has been deleted Successfully"
                                     startActivity(Intent(this@GroupChatActivity, MainActivity::class.java))
                                     finish()
-                                } else msg = "Query Failed to Close"
+                                } else msg = "Failed to delete group"
                                 Toast.makeText(this@GroupChatActivity, msg, Toast.LENGTH_LONG).show()
                             }
                             progress_chat.visibility = View.GONE
@@ -393,6 +408,9 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
             val fileIntent = Intent(Intent.ACTION_GET_CONTENT)
             //                        Uri uri = Uri.parse(Environment.getRootDirectory().getAbsolutePath());
             //                        fileIntent.setData(uri);
+
+            fileIntent.setType("application/msword");
+            fileIntent.addCategory(Intent.CATEGORY_OPENABLE);
             fileIntent.type = "application/pdf"
             val extraMimeTypes = arrayOf(
                 "audio/*",
@@ -403,7 +421,33 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
                 "application/vnd.ms-powerpoint",
                 "application/vnd.ms-excel",
                 "application/zip",
-                "audio/x-wav|text/plain"
+                "audio/x-wav|text/plain",
+
+
+                "application/msword",
+                "application/msword",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.template",
+                "application/vnd.ms-word.document.macroEnabled.12",
+                "application/vnd.ms-word.template.macroEnabled.12",
+                "application/vnd.ms-excel",
+                "application/vnd.ms-excel",
+                "application/vnd.ms-excel",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.template",
+                "application/vnd.ms-excel.sheet.macroEnabled.12",
+                "application/vnd.ms-excel.template.macroEnabled.12",
+                "application/vnd.ms-excel.addin.macroEnabled.12",
+                "application/vnd.ms-excel.sheet.binary.macroEnabled.12",
+                "application/vnd.ms-powerpoint",
+                "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                "application/vnd.openxmlformats-officedocument.presentationml.template",
+                "application/vnd.openxmlformats-officedocument.presentationml.slideshow",
+                "application/vnd.ms-powerpoint.addin.macroEnabled.12",
+                "application/vnd.ms-powerpoint.presentation.macroEnabled.12",
+                "application/vnd.ms-powerpoint.template.macroEnabled.12",
+                "application/vnd.ms-powerpoint.slideshow.macroEnabled.12",
+                "application/vnd.ms-access"
             )
             fileIntent.putExtra(Intent.EXTRA_MIME_TYPES, extraMimeTypes)
             startActivityForResult(fileIntent, DoccumentRequestCode)
@@ -719,8 +763,9 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
 
     // called by interface (Adapter)
     override fun ClickImageCallback(url: String?, v: View?) {
-        enqueueDownload("https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg")
-        urlDownload = "https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg"
+//        enqueueDownload("https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg")
+//        urlDownload = "https://upload.wikimedia.org/wikipedia/commons/1/16/HDRI_Sample_Scene_Balls_%28JPEG-HDR%29.jpg"
+        enqueueDownload(url!!)
     }
 
     //enquee download
@@ -790,7 +835,7 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
                         BuildConfig.APPLICATION_ID + ".provider", File(download.file)
                     );
 
-                intent.setDataAndType(dirUri, "${contentResolver.getType(dirUri)}/*")
+                intent.setDataAndType(dirUri, "${contentResolver.getType(dirUri)}")
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 
