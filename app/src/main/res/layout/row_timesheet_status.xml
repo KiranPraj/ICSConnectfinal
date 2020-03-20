@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space10"
+            android:layout_margin="@dimen/space10"
+            android:backgroundTint="@color/white"
+            app:cardElevation="@dimen/space15"
+            app:cardCornerRadius="@dimen/space15"
+    >
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+        >
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_margin="@dimen/space10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:background="@color/white"
+            >
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Month"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/space15"
+
+                />
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Month"
+                        android:id="@+id/month"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/space15"
+                />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_margin="@dimen/space10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:background="@color/white"
+            >
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Send date"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/space15"
+
+                />
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="-"
+                        android:id="@+id/sendate"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/space15"
+                />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Status"
+                        android:id="@+id/status"
+                        android:background="@color/gray_text_disabled"
+                        android:layout_marginRight="@dimen/space20"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/white"
+                        android:padding="5dp"
+                />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
