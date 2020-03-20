@@ -17,14 +17,37 @@ import java.util.*
 
 
 class Common {
+     fun getTimesheetAPI1():ApiService
+    {
+       // return RetrofitClient.getClient("http://192.168.0.243:99/Home/").create(ApiService::class.java)  // local
+        return RetrofitClient.getClient("http://icspl.org:5005/Home/").create(ApiService::class.java)  // live
+
+
+    }
 
     companion object {
-   //     private val BASE_URL = "http://192.168.0.243:99/Home/"
-       public val BASE_URL = "http://icspl.org:5005/Home/"
+      // private val BASE_URL = "http://192.168.0.243:99/Home/"
+       private val BASE_URL = "http://192.168.0.243:99/"  // local 11 nov19
 
-        public fun getAPI(): ApiService {
+    //   public val BASE_URL = "http://icspl.org:5005/"
+
+
+        public fun getAPI():ApiService
+        {
             return RetrofitClient.getClient(BASE_URL).create(ApiService::class.java)
         }
+       /* public fun getAPI(value:String ): ApiService {
+            var k: ApiService? =null
+        if(value.equals("common"))
+            {
+                k= RetrofitClient.getClient("http://192.168.0.243:99/Home/").create(ApiService::class.java)
+            }
+            else if(value.equals("timesheet"))
+            {
+                k= RetrofitClient.getClient("http://192.168.0.243:99/Timesheet/").create(ApiService::class.java)
+            }
+        return k!!
+        }*/
 
         public fun isConnectedMobile(context: Context): Boolean {
 
@@ -34,6 +57,16 @@ class Common {
             val networkInfo = connectivityManager!!.activeNetworkInfo
 
             return networkInfo != null && networkInfo.isConnected
+        }
+        public fun getFormatedDate(date: String): Int {
+            val dateFormat = SimpleDateFormat("MM/d/yyyy", Locale.ENGLISH)
+
+            val sdate = dateFormat.parse(date)
+
+            val formatter = SimpleDateFormat("yyyy", Locale.ENGLISH)
+            val newDate = formatter.format(sdate).toInt()
+
+            return newDate
         }
 
     }
@@ -58,12 +91,12 @@ class Common {
         return body5
     }
 
-    fun getFormatedDate(date: String): String {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+    public fun getFormatedDate(date: String): String {
+        val dateFormat = SimpleDateFormat("MM/d/yyyy", Locale.ENGLISH)
 
         val sdate = dateFormat.parse(date)
 
-        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val formatter = SimpleDateFormat("yyyy", Locale.ENGLISH)
         val newDate = formatter.format(sdate)
 
         return newDate

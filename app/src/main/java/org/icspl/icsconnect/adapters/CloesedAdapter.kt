@@ -22,6 +22,9 @@ public class CloesedAdapter(
         public var c_open_date: TextView
         public var c_close_date: TextView
         public var c_remarks: TextView
+        public var qbyid: TextView
+
+
 
 
         init {
@@ -29,6 +32,7 @@ public class CloesedAdapter(
             c_close_date = view.findViewById(R.id.c_close_date)
             c_remarks = view.findViewById(R.id.c_remarks)
             c_open_date = view.findViewById(R.id.c_open_date)
+            qbyid=view.findViewById(R.id.qbyid)
         }
 
     }
@@ -45,11 +49,23 @@ public class CloesedAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val model = mList[holder.adapterPosition]
+        var opendate=model.sendfrm
+        var closedate=model.closedate
+        if(!opendate.equals(null))
+        {
+             opendate=opendate!!.replace("T","/")
+        }
+        if(!closedate.equals(null))
+        {
+             closedate=closedate!!.replace("T","/")
+        }
 
         holder.c_qid.text = model.queryid
-        holder.c_close_date.text = model.closedate
-        holder.c_open_date.text = model.sendfrm
+        holder.c_close_date.text = closedate
+        holder.c_open_date.text = opendate
+
         holder.c_remarks.text = model.remarks
+        holder.qbyid.text=model.toemp
     }
 
     companion object {

@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.ActivityOptions
 import android.content.ClipData
+import android.content.Context
 import android.content.Intent
 import android.graphics.*
 import android.media.ExifInterface
@@ -19,6 +20,7 @@ import android.util.Log.i
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -50,6 +52,7 @@ import org.icspl.icsconnect.MainActivity
 import org.icspl.icsconnect.R
 import org.icspl.icsconnect.adapters.ChatAdapter
 import org.icspl.icsconnect.models.Chat
+import org.icspl.icsconnect.models.ConversationModel
 import org.icspl.icsconnect.preferences.LoginPreference
 import org.icspl.icsconnect.utils.Common
 import org.icspl.icsconnect.utils.FileManager
@@ -62,7 +65,7 @@ import java.util.*
 
 class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
 
-
+    private lateinit var back:ImageView
     private val mLoginPreference by lazy { LoginPreference.getInstance(this@ChatActivity) }
     private val mDisposable = CompositeDisposable()
     private val mService by lazy { Common.getAPI() }
@@ -103,7 +106,10 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
         mToolbar = findViewById(R.id.toolbar)
         setSupportActionBar(mToolbar)
 
-
+        back= findViewById(R.id.back)
+        back.setOnClickListener(View.OnClickListener {
+            finish()
+        })
         if (intent != null) {
             photoPath = if (intent.getStringExtra("photo") != null) {
                 intent.getStringExtra("photo")
@@ -183,7 +189,7 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
         val item = Chat("2", et_message.getText().toString(), Common().getTime(), photoPath, null)
         progress_chat.visibility = View.VISIBLE
 
-        mDisposable.add(
+            mDisposable.add(
             mService.sendMessage(
                 RequestBody.create(MediaType.parse("text/plain"), queryId),
                 RequestBody.create(MediaType.parse("text/plain"), mLoginPreference.getStringData("id", "")!!),
@@ -200,7 +206,7 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
                         if (s.get(0).response!! >= 1) {
 
                             Toast.makeText(
-                                this@ChatActivity, "Query Sent Successfully",
+                                 this@ChatActivity, "Query Sent Successfully",
                                 Toast.LENGTH_SHORT
                             ).show()
 
@@ -308,6 +314,7 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ s ->
                     if (s != null) {
+
                         s.chatMessages?.forEach {
                             i(TAG, "MESSAGE: " + it.remarks)
                             val fromTo =
@@ -347,43 +354,52 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
             Toast.makeText(this@ChatActivity, "Internet Required", Toast.LENGTH_LONG).show()
             return
         }
+        var uid=mLoginPreference.getStringData("id","")
+        var fromemp=mLoginPreference.getStringData("fromemp","")
+        if(fromemp.equals("yes"))
+        {
+            AlertDialog.Builder(this@ChatActivity)
+                .setIcon(R.drawable.icslogo)
+                .setTitle("Close Query")
+                .setMessage("Are you sure wants to Close the Query")
+                .setPositiveButton(getString(R.string.close_query)) { dialog, which ->
+                    dialog.dismiss()
+                    var msg: String? = null
+                    progress_chat.visibility = View.VISIBLE
+                    mDisposable.add(
+                        mService.closeQuery(queryId)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({ s ->
+                                s?.let {
+                                    if (it.get(0).response!! >= 1) {
+                                        msg = "Query Closed Successfully"
+                                        startActivity(Intent(this@ChatActivity, MainActivity::class.java))
+                                        finish()
+                                    } else msg = "Query Failed to Close"
+                                    Toast.makeText(this@ChatActivity, msg, Toast.LENGTH_LONG).show()
+                                }
+                                progress_chat.visibility = View.GONE
 
-        AlertDialog.Builder(this@ChatActivity)
-            .setIcon(R.mipmap.ic_launcher)
-            .setTitle("Close Query")
-            .setMessage("Are you sure wants to Close the Query")
-            .setPositiveButton(getString(R.string.close_query)) { dialog, which ->
-                dialog.dismiss()
-                var msg: String? = null
-                progress_chat.visibility = View.VISIBLE
-                mDisposable.add(
-                    mService.closeQuery(queryId)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({ s ->
-                            s?.let {
-                                if (it.get(0).response!! >= 1) {
-                                    msg = "Query Closed Successfully"
-                                    startActivity(Intent(this@ChatActivity, MainActivity::class.java))
-                                    finish()
-                                } else msg = "Query Failed to Close"
-                                Toast.makeText(this@ChatActivity, msg, Toast.LENGTH_LONG).show()
-                            }
-                            progress_chat.visibility = View.GONE
+                            }, { throwable ->
+                                Log.i(TAG, throwable.message)
+                                Toast.makeText(this@ChatActivity, "Error: ${throwable.message}", Toast.LENGTH_LONG)
+                                    .show()
+                                progress_chat.visibility = View.GONE
 
-                        }, { throwable ->
-                            Log.i(TAG, throwable.message)
-                            Toast.makeText(this@ChatActivity, "Error: ${throwable.message}", Toast.LENGTH_LONG)
-                                .show()
-                            progress_chat.visibility = View.GONE
+                            })
+                    )
 
-                        })
-                )
+                }.setNegativeButton(android.R.string.cancel, { dialog, which ->
+                    dialog.dismiss()
+                })
+                .show()
+        }
+        else
+        {
+           Toast.makeText(this@ChatActivity,"only authorize person can close the query",Toast.LENGTH_LONG).show()
+        }
 
-            }.setNegativeButton(android.R.string.cancel, { dialog, which ->
-                dialog.dismiss()
-            })
-            .show()
     }
 
     private fun picDocuments() {
@@ -558,8 +574,8 @@ class ChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler {
 
         //      max Height and width values of the compressed image is taken as 816x612
 
-        val maxHeight = 816.0f
-        val maxWidth = 612.0f
+        val maxHeight = 1500.0f
+        val maxWidth = 2000.0f
         var imgRatio = (actualWidth / actualHeight).toFloat()
         val maxRatio = maxWidth / maxHeight
 

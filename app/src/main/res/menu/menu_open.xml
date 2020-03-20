@@ -1,24 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+   <item android:id="@+id/home" android:title="Home"/>
+    <group android:id="@+id/group1"
+           android:checkableBehavior="all">
+        <item android:title="ICSConnect">
+        <menu>
+            <item android:title="Queries"
+                  android:id="@+id/query"
+                  android:icon="@drawable/query"
+            />
+            <item android:id="@+id/menu_close"
+                  android:icon="@drawable/ic_close"
+                  android:title="@string/clos_querye"
+                  app:showAsAction="withText"/>
+            <item android:id="@+id/menu_group"
+                  android:icon="@drawable/ic_mygroup"
+                  android:title="@string/group"
+                  android:enabled="true"
+                  app:showAsAction="withText"/>
 
-    <item android:id="@+id/menu_close"
-          android:icon="@drawable/ic_close"
-          android:title="@string/clos_querye"
-          app:showAsAction="withText"/>
-    <item android:id="@+id/menu_group"
-          android:icon="@drawable/bg_chat_me"
-          android:title="@string/group"
-          android:enabled="true"
-          app:showAsAction="withText"/>
-    <item android:id="@+id/Logout"
-          android:icon="@drawable/bg_chat_me"
-          android:title="@string/logout"
-          android:enabled="true"
-          app:showAsAction="withText"/>
+            <item android:id="@+id/deletegrp"
+                    android:visible="false"
+                  android:icon="@drawable/ic_delete_black_24dp"
+                  android:title="@string/delete_group"
+            />
 
-    <item android:id="@+id/deletegrp"
-          app:showAsAction="always"
-          android:icon="@drawable/ic_delete_black_24dp"/>
-
+        </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="all"
+           android:id="@+id/TimesheetGroup">
+        <item android:title="Timesheet">
+                <menu>
+        <item android:id="@+id/timesheet"
+              android:title="Fill Timesheet"
+              android:enabled="true"
+              app:showAsAction="withText"
+              android:icon="@drawable/ic_timesheet"
+        />
+        <item android:id="@+id/ViewTimesheetfill"
+              android:enabled="true"
+              app:showAsAction="withText"
+              android:title="View TimeSheet"
+              android:icon="@drawable/ic_viewtimesheet"
+        />
+                </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="all"
+           android:id="@+id/leave">
+        <item android:title="Leaves">
+                <menu>
+        <item android:title="Leave Status"
+          android:icon="@drawable/ic_leave"
+          app:showAsAction="withText"
+          android:id="@+id/LeaveStatus"/>
+                </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="single"
+           android:id="@+id/logoutgorup">
+        <item android:id="@+id/Logout"
+              android:icon="@drawable/ic_logout"
+              android:title="@string/logout"
+              android:enabled="true"
+              app:showAsAction="withText"/>
+    </group>
 
 </menu>

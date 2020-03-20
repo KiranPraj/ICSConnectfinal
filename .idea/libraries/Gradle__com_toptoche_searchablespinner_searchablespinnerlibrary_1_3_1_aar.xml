@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/searchablespinnerlibrary-1.3.1.aar/28cdb919badd1d6487cc3ca17e0e48f9/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/searchablespinnerlibrary-1.3.1.aar/28cdb919badd1d6487cc3ca17e0e48f9/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/searchablespinnerlibrary-1.3.1.aar/4de7fc1be7a426815450ab6563b1498f/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/searchablespinnerlibrary-1.3.1.aar/4de7fc1be7a426815450ab6563b1498f/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

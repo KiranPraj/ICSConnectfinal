@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+            android:background="@drawable/bg_leave"
+        android:scrollbars="vertical">
+           <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                app:cardElevation="10dp"
+                app:cardCornerRadius="5dp"
+                android:layout_margin="5dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/restrict">
+
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Name:"
+                            
+                            android:textColor="#181717"
+                            android:textSize="16sp"
+                            />
+
+                    <TextView
+                            android:textAlignment="center"
+                            android:id="@+id/name_apply"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:popupBackground="@drawable/background"
+                            android:tooltipText="center"
+                            android:textSize="16sp"
+                            android:background="@drawable/bg_leave"
+                            />
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal"
+
+                        android:weightSum="3">
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="EmpCode"
+                            android:textColor="#181717"
+                            
+                            android:textSize="16sp"
+                            />
+
+                    <TextView
+                            android:textAlignment="center"
+                            android:id="@+id/emp_code_apply"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:popupBackground="@drawable/background"
+                            android:tooltipText="center"
+                            android:textSize="16sp"
+                            android:background="@drawable/bg_leave"
+                            />
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal"
+
+                        android:weightSum="3">
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Station"
+                            android:textColor="#181717"
+                            
+                            android:textSize="16sp"
+                            />
+
+                    <TextView
+                            android:textAlignment="center"
+                            android:id="@+id/station_apply"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:popupBackground="@drawable/background"
+                            android:tooltipText="center"
+                            android:textSize="16sp"
+                            android:background="@drawable/bg_leave"
+                            />
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Financial Year"
+                            android:textSize="16sp"
+                            
+                            android:textColor="#181717"
+                            />
+
+                    <Spinner
+                            android:textAlignment="center"
+                            android:id="@+id/spinner_financial_year"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:tooltipText="center"
+                            android:background="@drawable/bg_leave"
+
+
+                            />
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Leave"
+                            android:textSize="16sp"
+                            
+                            android:textColor="#181717"
+                            />
+
+                    <Spinner
+                            android:textAlignment="center"
+                            android:id="@+id/leave_type_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:tooltipText="center"
+                            android:background="@drawable/bg_leave"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear_halfday_against"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        android:visibility="gone"
+                        >
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Half Day Against"
+                            android:textSize="16sp"
+                            
+                            android:textColor="#181717"
+                            />
+
+                    <Spinner
+                            android:textAlignment="center"
+                            android:id="@+id/halfdayagainst_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:tooltipText="center"
+                            android:background="@drawable/bg_leave"
+                            />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/linear_comp_against"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        android:visibility="gone"
+                        >
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Comp Against"
+                            android:textSize="16sp"
+
+                            android:textColor="#181717"
+                            />
+
+                    <Spinner
+                            android:textAlignment="center"
+                            android:id="@+id/compagainst_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:tooltipText="center"
+                            android:background="@drawable/bg_leave"
+                            />
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="From Date"
+                            android:textSize="16sp"
+                            
+                            android:textColor="#181717"
+                            />
+
+                    <TextView
+                            android:textAlignment="center"
+                            android:id="@+id/from_date"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:tooltipText="center"
+                            android:drawableRight="@drawable/ic_date_range_black_24dp"
+                            android:background="@drawable/bg_leave"
+
+
+                            />
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                    <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="To Date"
+                            android:textSize="16sp"
+                            
+                            android:textColor="#181717"
+                            />
+
+                    <TextView
+                            android:textAlignment="center"
+                            android:id="@+id/to_date"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:tooltipText="center"
+                            android:drawableRight="@drawable/ic_date_range_black_24dp"
+                            android:background="@drawable/bg_leave"
+
+
+                            />
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal"
+                        >
+
+                    <TextView
+                            android:layout_width="133dp"
+                            android:layout_height="wrap_content"
+                            android:text="Reason"
+                            android:textSize="16sp"
+                            
+                            android:textColor="#181717"
+                            android:layout_gravity="center"
+                            />
+
+                    <EditText
+
+                            android:id="@+id/reason"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="@drawable/bg_leave"
+                            android:minLines="3"
+                            android:hint="enter reason here"
+                           android:gravity="left|top"
+
+
+                            />
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:layout_width="133dp"
+                            android:layout_height="wrap_content"
+                            android:text="Address"
+                            android:textSize="16sp"
+                            
+                            android:layout_gravity="center"
+                            android:textColor="#181717"
+                            />
+
+                    <EditText
+
+                            android:id="@+id/address"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:minLines="3"
+                            android:hint="enter address here"
+                            android:background="@drawable/bg_leave"
+                            android:gravity="left|top"
+
+                            />
+                </LinearLayout>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="5dp"
+                        android:orientation="horizontal"
+                      >
+
+                    <TextView
+                            android:layout_width="133dp"
+                            android:layout_height="wrap_content"
+
+                            android:text="HandOver To"
+                            android:textSize="16sp"
+                            
+                            android:textColor="#181717"
+                            />
+
+                    <EditText
+                            android:gravity="left|top"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+
+                        android:background="@drawable/bg_leave"
+                        android:id="@+id/hand_over"/>
+                    
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_margin="15dp"
+                        android:orientation="vertical"
+                        android:layout_gravity="center">
+
+                    <com.google.android.material.button.MaterialButton
+
+                            android:id="@+id/apply_submit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            app:cornerRadius="4dp"
+                            android:textColor="@color/colorPrimaryDark"
+                            app:strokeColor="@color/colorPrimaryDark"
+                            android:textStyle="bold"
+                            android:textSize="21sp"
+                            android:text="Apply Leave"
+                            android:theme="@style/MatButton"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            app:strokeWidth="2dp"
+
+                            />
+                </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+</ScrollView>
+
+</LinearLayout>

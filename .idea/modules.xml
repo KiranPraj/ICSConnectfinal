@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ICSConnect.iml" filepath="$PROJECT_DIR$/ICSConnect.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ICSConnect.iml" filepath="$PROJECT_DIR$/ICSConnect.iml" group="ICSConnect" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="ICSConnect/app" />
     </modules>
   </component>
 </project>

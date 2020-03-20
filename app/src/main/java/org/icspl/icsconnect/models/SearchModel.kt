@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName
 
 class SearchModel {
 
-    @SerializedName("name")
+    @SerializedName("Emp_Name")
     @Expose
      val name: String? = null
-    @SerializedName("id")
+    @SerializedName("Emp_Code")
     @Expose
      val id: String? = null
 

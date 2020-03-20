@@ -6,56 +6,76 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/space10"
                 android:layout_marginRight="@dimen/spaceLR">
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/white"
+            android:elevation="4dp"
+            app:cardUseCompatPadding="true"
+            android:padding="15dp"
+
+    >
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:gravity="start">
+        <LinearLayout
             android:orientation="vertical"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_alignParentStart="true"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:paddingLeft="@dimen/space10"
             android:id="@+id/ll_chat_attachment_you"
-            android:gravity="end">
+            >
 
         <ImageView
                 android:contentDescription="@string/app_name"
-                android:layout_width="match_parent"
+                android:layout_width="80dp"
                 android:layout_height="60dp"
-                app:srcCompat="@drawable/ic_attachment_chat"
+                app:srcCompat="@drawable/download"
                 android:id="@+id/img_attchment_view_you"
-                android:tint="@color/colorTextView"
                 android:adjustViewBounds="false"
-                android:layout_gravity="end"/>
 
-        <ProgressBar
-                android:id="@+id/progressBar"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:max="100"
-                android:progress="50"/>
-        <TextView
-                android:id="@+id/remaining_TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10s"
-                android:layout_gravity="start"
-                android:textColor="@color/colorTextView"
-                android:textStyle="bold"/>
+
+        />
+
+        <!--<ProgressBar-->
+                <!--android:layout_marginTop="@dimen/space10"-->
+                <!--android:id="@+id/progressBar"-->
+                <!--style="@android:style/Widget.ProgressBar.Horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="5dp"-->
+
+               <!--/>-->
+        <!--<TextView-->
+                <!--android:id="@+id/remaining_TextView"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="10s"-->
+                <!--android:layout_gravity="start"-->
+                <!--android:textColor="@color/colorTextView"-->
+                <!--android:textStyle="bold"/>-->
 
     </LinearLayout>
     <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" android:layout_below="@id/ll_chat_attachment_you"
             android:gravity="center_vertical">
         <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
                 android:src="@drawable/user1"
-                android:layout_marginRight="@dimen/space10" android:id="@+id/iv_other_you"/>
+                android:layout_marginRight="@dimen/space10"
+                android:id="@+id/iv_other_you"/>
         <TextView
                 android:id="@+id/tv_chat_text"
                 android:layout_toLeftOf="@id/tv_time"
                 android:maxWidth="@dimen/maxwidth"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/space10"
                 android:textIsSelectable="true"
@@ -63,16 +83,20 @@
                 android:textColor="@color/colorTextBlack"
                 android:textSize="@dimen/h3"
                 android:background="@drawable/bg_chat_you"/>
-        <TextView
-                android:id="@+id/tv_time"
-                android:layout_marginLeft="@dimen/space10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="@dimen/space5"
-                android:drawableLeft="@drawable/ic_clock"
-                android:text="5:04pm"
-                android:textColor="@color/colorTextInfo"
-                android:textSize="@dimen/h4"
-                android:layout_centerVertical="true"/>
+
     </LinearLayout>
+            <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_marginLeft="@dimen/space10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/space5"
+                    android:drawableLeft="@drawable/ic_clock"
+                    android:text="5:04pm"
+                    android:gravity="center"
+                    android:textColor="@color/colorTextInfo"
+                    android:textSize="@dimen/h4"
+                    android:layout_centerVertical="true"/>
+        </LinearLayout>/
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

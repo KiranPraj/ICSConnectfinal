@@ -16,7 +16,11 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
-
+    <style name="MatButton" parent="Theme.MaterialComponents">
+        <item name="colorOnPrimary">@android:color/holo_red_light</item>
+        <item name="colorPrimary">@color/colorTextBlack</item>
+        <item name="colorOnSurface">@color/colorTextBlack</item>
+    </style>
     <style name="AppThemeFull.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

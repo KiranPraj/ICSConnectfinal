@@ -24,5 +24,14 @@ public class EmployeeDetail {
     @SerializedName("masteradmin")
     @Expose
     public String masteradmin;
+    @SerializedName("Station")
+    @Expose
+    public String station;
+    @SerializedName("Doj")
+    @Expose
+    public String doj;
+    @SerializedName("Role")
+    @Expose
+    public String role;
 
 }

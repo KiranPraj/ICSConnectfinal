@@ -25,7 +25,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dots">…</string>
     <string name="close">Close</string>
-    <string name="clos_querye">Close Query</string>
+    <string name="clos_querye">Closed Query</string>
     <string name="search_op_name">Search Name</string>
 
     //encoded strings for documents
@@ -52,5 +52,59 @@
     <string name="master_admin_frag">Master_Admin_Fragment</string>
     <string name="group_name">Group Name</string>
     <string name="add_admin">Add Admin</string>
+    <string name="Company">Company</string>
     <string name="add_members">Add Members</string>
+
+    //time sheet
+    <string name="outside_municiple_limit">OUTSIDE MUNICIPLE LIMIT</string>
+    <string name="with_in_municiple_limit">WITH IN MUNICIPLE LIMIT</string>
+    <string name="tap_to_select_date">TAP TO SELECT DATE</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="date">DATE</string>
+    <string name="leave_home_frg">Leave Home Fragment</string>
+    <string name="avail_leave">Available Leave</string>
+    <string name="frag_leave_status">Leave Status</string>
+    <string name="apply_leave">Apply Leave</string>
+    <string name="view_time_sheet">View TimeSheet</string>
+    <string name="view_marketing_details">View Marketing Details</string>
+    <string name="view_expense_details">View Expense Details</string>
+    <string name="view_expenses_details">View Expenses Details</string>
+    <string name="view_Inspection_details">View Inspection Details</string>
+    <string name="view_Manday_details">View Man Day Details</string>
+    <string name="weekly">Weekly</string>
+    <string name="out_station">OutStation</string>
+    <string name="na">NA</string>
+    <string name="expense_home_frg">Expenses Fragment</string>
+    <string name="summary">Enter your Summary Here</string>
+    <string name="not_attached">Choose File</string>
+    //timesheet hours
+    <string-array name="Hours">
+        <item>SELECT</item>
+        <item>8</item>
+        <item>6</item>
+        <item>4</item>
+        <item>AB</item>
+    </string-array>
+    //months
+    <string-array name="Months">
+        <item>SELECT MONTH</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string-array name="Activity">
+        <item>SELECT</item>
+
+
+    </string-array>
 </resources>

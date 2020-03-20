@@ -1,53 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="org.icspl.icsconnect">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="org.icspl.icsconnect">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
             android:name=".App.ICSConnectApplication"
             android:fullBackupContent="false"
-            android:icon="@mipmap/icslogo"
+            android:icon="@drawable/icslogo"
             android:label="@string/app_name"
-
-            android:usesCleartextTraffic="true"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:largeHeap="true"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-
-    >
-        <activity android:name=".activity.GroupActivity">
-        </activity>
-        <activity android:name=".activity.CLosedQueryActivity">
-        </activity>
-        <activity android:name=".activity.RaiseQueryActivity">
-        </activity>
-        <activity android:name=".activity.CountMSGDetailsActivity">
-        </activity>
-        <activity android:name=".activity.LoginActivity">
+            android:usesCleartextTraffic="true">
+        <activity
+                android:name=".activity.Expenses"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.TimesheetStatus"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.Terms_condition"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.Roles_responsibility"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.Offer"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.Contract"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.ViewTimesheet"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.Salary_Slip"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.Other"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.RealTimePunchData"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.Account"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.Leave"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+                android:windowSoftInputMode="adjustResize" />
+        <activity
+                android:name=".activity.ICSConnect"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.Timesheet"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.DashBoardActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.FillTimeSheet"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
+        <activity
+                android:name=".activity.GroupActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+                android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+                android:name=".activity.CLosedQueryActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
+        <activity
+                android:name=".activity.RaiseQueryActivity"
+                android:screenOrientation="portrait"></activity>
+        <activity
+                android:name=".activity.CountMSGDetailsActivity"
+                android:screenOrientation="portrait"></activity>
+        <activity
+                android:name=".activity.LoginActivity"
+                android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
         <activity
                 android:name=".activity.ChatActivity"
-                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-        <activity android:name=".MainActivity"
-                  android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
-
-        <activity android:name=".activity.GroupChatActivity"/>
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".MainActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+                android:name=".activity.GroupChatActivity"
+                android:screenOrientation="portrait" />
 
         <service android:name=".services.MyFirebaseIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <!--
@@ -56,14 +133,14 @@
         -->
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_icon"
-                android:resource="@drawable/bg_chat_me"/>
+                android:resource="@drawable/bg_chat_me" />
         <!--
  Set color used with incoming notification messages. This is used when no color is set for the incoming
              notification message. See README(https://goo.gl/6BKBk7) for more.
         -->
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_color"
-                android:resource="@color/colorAccent"/>
+                android:resource="@color/colorAccent" />
 
         <provider
                 android:name="androidx.core.content.FileProvider"
@@ -72,7 +149,7 @@
                 android:grantUriPermissions="true">
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/file_provider"/>
+                    android:resource="@xml/file_provider" />
         </provider>
     </application>
 

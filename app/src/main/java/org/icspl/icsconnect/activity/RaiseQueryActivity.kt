@@ -37,6 +37,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.multi.SnackbarOnAnyDeniedMultiplePermissionsListener
 import com.mancj.materialsearchbar.MaterialSearchBar
+import com.tonyodev.fetch2core.isNetworkAvailable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Consumer
@@ -59,6 +60,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.LinkedHashMap
 
 
 class RaiseQueryActivity : AppCompatActivity(),
@@ -72,7 +74,7 @@ class RaiseQueryActivity : AppCompatActivity(),
 
     private val mService by lazy { Common.getAPI() }
     private var searchList: MutableList<String> = ArrayList()
-    private var searchHashList: HashMap<Int, SearchModel> = hashMapOf()
+    private var searchHashList: LinkedHashMap<Int, SearchModel> = linkedMapOf()
 
     private lateinit var searchBar: MaterialSearchBar
     private val mDisposeOn = CompositeDisposable()
@@ -85,22 +87,39 @@ class RaiseQueryActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(org.icspl.icsconnect.R.layout.activity_raise_query)
         progressrais.visibility=View.GONE
+            if(isNetworkAvailable())
+            {
+                initSearchBar()
 
+                btn_send_query.setOnClickListener { handleQuery() }
+
+
+                btn_raised_attachment.setOnClickListener { checkPermissions() }
+            }
+            else
+            {
+                Toast.makeText(context,"No Internet Available",Toast.LENGTH_LONG).show()
+            }
         //handleSearchChangeLisitenr()
-        initSearchBar()
-        btn_send_query.setOnClickListener { handleQuery() }
 
 
-        btn_raised_attachment.setOnClickListener { checkPermissions() }
     }
 
     // prepare data to send to server
     private fun handleQuery() {
         progressrais.visibility=View.VISIBLE
         if (et_message_query.text!!.isEmpty()) {
-            Toast.makeText(this@RaiseQueryActivity, "Error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@RaiseQueryActivity, "Query cannot be empty", Toast.LENGTH_SHORT).show()
             til_raised.isErrorEnabled = true
+            progressrais.visibility=View.GONE
             til_raised.error = "Query can not be Empty"
+            return
+        }
+        var empname=tv_rased_to.text.toString()
+        if(empname.equals(""))
+        {
+            progressrais.visibility=View.GONE
+            Toast.makeText(context,"Please Select Employee Name",Toast.LENGTH_LONG).show()
             return
         }
         if (til_raised.isErrorEnabled)
@@ -423,7 +442,8 @@ searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             fileIntent.putExtra(Intent.EXTRA_MIME_TYPES, extraMimeTypes)
             startActivityForResult(fileIntent, DOCCUMENT_REQUEST_CODE)
         } catch (e: Exception) {
-            Toast.makeText(this@RaiseQueryActivity, e.message, Toast.LENGTH_SHORT).show()
+
+            Toast.makeText(this@RaiseQueryActivity,"Something went wrong", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -541,8 +561,8 @@ searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
         //      max Height and width values of the compressed image is taken as 816x612
 
-        val maxHeight = 816.0f
-        val maxWidth = 612.0f
+        val maxHeight = 1500.0f
+        val maxWidth = 2000.0f
         var imgRatio = (actualWidth / actualHeight).toFloat()
         val maxRatio = maxWidth / maxHeight
 

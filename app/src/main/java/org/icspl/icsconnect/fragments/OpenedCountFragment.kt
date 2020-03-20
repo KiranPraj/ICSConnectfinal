@@ -124,9 +124,11 @@ class OpenedCountFragment : androidx.fragment.app.Fragment(), OpenedCountAdapter
         var fromId: String
         var toID: String
         if (isMineQuery) {
+            mLoginPreference.savStringeData("fromemp","yes")
             toID = mLoginPreference.getStringData("id", "ICS/123")!!
             fromId = id
         } else {
+            mLoginPreference.savStringeData("fromemp","no")
             fromId = mLoginPreference.getStringData("id", "ICS/123")!!
             toID = id
         }

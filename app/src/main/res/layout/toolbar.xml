@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-                                   android:orientation="vertical"
-                                   android:layout_width="match_parent"
-                                   android:background="@color/colorGreen"
-                                   android:layout_height="?actionBarSize">
+<androidx.appcompat.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="#FFC107"
+        android:layout_height="?actionBarSize"
+        app:title="ICSPL"
+>
     <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
@@ -12,5 +15,14 @@
             android:textAllCaps="false"
             android:textSize="@dimen/h1"
             android:textColor="@android:color/black"
+    />
+    <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/back"
+            android:id="@+id/back"
+            android:layout_marginEnd="@dimen/space15"
+            android:layout_gravity="right"
+
     />
 </androidx.appcompat.widget.Toolbar>

@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.tonyodev.fetch2:fetch2:2.3.6@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-fetch2-2.3.6.aar/82de2dec12876b86328d83e8c06ef41b/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-fetch2-2.3.6.aar/82de2dec12876b86328d83e8c06ef41b/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-fetch2-2.3.6.aar/41535343aee2631b901c3231b0dda153/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-fetch2-2.3.6.aar/41535343aee2631b901c3231b0dda153/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tonyodev.fetch2/fetch2/2.3.6/d803db19df88a6d55df21fe95231487b2329cbc9/fetch2-2.3.6-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tonyodev.fetch2/fetch2/2.3.6/d86d8cbe4758cb0185483e6aced8926b78801da/fetch2-2.3.6-sources.jar!/" />
     </SOURCES>

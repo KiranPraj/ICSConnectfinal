@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+    <TextView
+            android:layout_width="match_parent"
+            android:padding="@dimen/space5"
+            android:layout_height="wrap_content"
+            android:text="Weekly Expenses"
+            android:textStyle="bold"
+
+            >
+    </TextView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="Date"
+
+                       >
+                </TextView>
+                <TextView
+                        android:layout_width="0dp"
+                        android:padding="@dimen/space5"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/dropdownbackground"
+                        android:id="@+id/edit_date"
+                        android:drawableRight="@drawable/ic_date_range_black_24dp"
+                        android:hint="Select Date"
+                        android:textColorHint="@color/colorTextBlack"
+                        android:layout_height="wrap_content">
+
+                </TextView>
+
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/space5"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="Particular of Expenses"
+
+                        android:padding="@dimen/space5"
+                      >
+                </TextView>
+                <EditText
+                        android:layout_width="0dp"
+
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdownbackground"
+                        android:id="@+id/particular_expenses"
+                        android:padding="@dimen/space5"
+
+                        >
+
+                </EditText>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/space5"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="Total Amount"
+                        >
+                </TextView>
+                <EditText
+                        android:layout_width="0dp"
+                        android:padding="@dimen/space5"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdownbackground"
+                        android:id="@+id/total_amount"
+
+                        >
+
+                </EditText>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/space5"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="IGST"
+                       >
+                </TextView>
+                <EditText
+                        android:layout_width="0dp"
+                        android:padding="@dimen/space5"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdownbackground"
+                        android:id="@+id/igst"
+
+                        >
+
+                </EditText>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/space5"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+
+                        android:textAlignment="center"
+                        android:text="CGST"
+                     >
+                </TextView>
+                <EditText
+                        android:layout_width="0dp"
+                        android:padding="@dimen/space5"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdownbackground"
+                        android:id="@+id/cgst"
+
+                        >
+
+                </EditText>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/space5"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+
+                        android:textAlignment="center"
+                        android:text="SGST"
+                      >
+                </TextView>
+                <EditText
+                        android:layout_width="0dp"
+                        android:padding="@dimen/space5"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdownbackground"
+                        android:id="@+id/sgst"
+                        >
+
+                </EditText>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/space5"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+
+                        android:textAlignment="center"
+                        android:text="GST No."
+                      >
+                </TextView>
+                <EditText
+                        android:layout_width="0dp"
+                        android:padding="@dimen/space5"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdownbackground"
+                        android:id="@+id/gst_no"
+
+                        >
+
+                </EditText>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/space5"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+
+                        android:textAlignment="center"
+                        android:text="Service Provider"
+                       >
+                </TextView>
+                <EditText
+                        android:layout_width="0dp"
+                        android:padding="@dimen/space5"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdownbackground"
+                        android:id="@+id/service_provider"
+
+                        >
+
+                </EditText>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/space5"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="Paid By"
+                        >
+                </TextView>
+                <RadioGroup
+                        android:id="@+id/expenses_radio_grp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <RadioButton
+                            android:id="@+id/r_first"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:textColor="@color/colorTextBlack"
+                            android:text="Finance"
+                            android:textSize="14sp"
+                            android:layout_marginLeft="@dimen/space10"
+
+                            />
+
+                    <RadioButton
+                            android:id="@+id/r_second"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Self"
+                            android:textColor="@color/colorTextBlack"
+                            android:textSize="14sp"
+                            android:layout_marginLeft="@dimen/space15"
+                            tools:ignore="SmallSp"/>
+
+                </RadioGroup>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/space5"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sp_month"
+                        android:textAlignment="center"
+                        android:text="Inv. Amount"
+                      >
+                </TextView>
+                <EditText
+                        android:layout_width="0dp"
+                        android:padding="@dimen/space5"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdownbackground"
+                        android:id="@+id/inv_amount"
+
+                        >
+
+                </EditText>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/space5"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="Client No"
+                       >
+                </TextView>
+                <EditText
+                        android:layout_width="0dp"
+                        android:padding="@dimen/space5"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdownbackground"
+                        android:id="@+id/client_no"
+
+                        >
+
+                </EditText>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_margin="@dimen/space5"
+                    >
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:padding="@dimen/space5"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:text="Choose File"
+                       >
+                </TextView>
+                <Button
+                        android:layout_width="0dp"
+                        android:padding="@dimen/space5"
+                        android:textAlignment="center"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dropdownbackground"
+                        android:id="@+id/chose_file"
+                        android:text="Choose File"
+                        >
+
+                </Button>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+</LinearLayout>

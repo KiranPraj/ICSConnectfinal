@@ -49,6 +49,11 @@
         <item name="android:stateListAnimator" tools:targetApi="LOLLIPOP">@null</item>
         <item name="android:padding">@dimen/space20</item>
     </style>
+    <style name="MatButton" parent="Theme.MaterialComponents">
+        <item name="colorOnPrimary">@android:color/holo_red_light</item>
+        <item name="colorPrimary">@color/colorTextBlack</item>
+        <item name="colorOnSurface">@color/colorTextBlack</item>
+    </style>
 
     <style name="ProgressBarStyle">
         <item name="colorAccent">@color/colorProgressBar</item>
@@ -73,4 +78,14 @@
         <item name="mt_placeholderColor">@color/searchBarPlaceholderColor</item>
         <item name="mt_highlightedTextColor">@color/searchBarTextHighlightColor</item>
     </style>
+
+<!--
+    <style name="text_view_more">
+    <item name="android:text">View More....</item>
+    <item name="android:textSize">15sp</item>
+
+    <item name="android:color">@color/colorAccent</item>
+    &lt;!&ndash;  <item name="android:textColor">#ff999999</item> &ndash;&gt;
+    <item name="android:textStyle">normal</item>
+    </style>-->
 </resources>

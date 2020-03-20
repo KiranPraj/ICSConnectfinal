@@ -40,7 +40,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
-    public interface DoccumentClickHandler {
+    public interface  DoccumentClickHandler {
         void ClickImageCallback(String docUrl, View v);
     }
 

@@ -5,66 +5,66 @@ import android.content.SharedPreferences
 import org.icspl.icsconnect.R
 
 public class LoginPreference(context: Context) {
-    var sharedPreferences: SharedPreferences? = null
+  var sharedPreferences: SharedPreferences? = null
 
-    init {
-        // sharedPreferences = context.getSharedPreferences("YourCustomNamedPreference", Context.MODE_PRIVATE);
-        sharedPreferences = context.getSharedPreferences(context.getString(R.string.login), Context.MODE_PRIVATE)
+  init {
+    // sharedPreferences = context.getSharedPreferences("YourCustomNamedPreference", Context.MODE_PRIVATE);
+    sharedPreferences = context.getSharedPreferences(context.getString(R.string.login), Context.MODE_PRIVATE)
+  }
+
+  // save string
+  fun savStringeData(key: String, value: String) {
+    val prefsEditor = sharedPreferences!!.edit()
+    prefsEditor.putString(key, value)
+    prefsEditor.apply()
+  }
+
+  // save int
+  fun savInteData(key: String, value: Int) {
+    val prefsEditor = sharedPreferences!!.edit()
+    prefsEditor.putInt(key, value)
+    prefsEditor.apply()
+  }
+
+  // fetch int
+  fun getIntData(key: String, defValue: Int): Int {
+    return if (sharedPreferences != null) {
+      sharedPreferences!!.getInt(key, defValue)
+    } else 0
+  }
+
+
+  // fetch string
+  fun getStringData(key: String, defValue: String): String? {
+    return if (sharedPreferences != null) {
+      sharedPreferences!!.getString(key, defValue)
+    } else ""
+  }
+
+  // save boolean
+  fun saveBooleanData(key: String, value: Boolean?) {
+    val prefsEditor = sharedPreferences!!.edit()
+    prefsEditor.putBoolean(key, value!!)
+    prefsEditor.apply()
+  }
+
+  // fetch boolean
+  fun getBooleanData(key: String, defValue: Boolean?): Boolean? {
+    return if (sharedPreferences != null) {
+      sharedPreferences!!.getBoolean(key, defValue!!)
+    } else null
+  }
+
+  companion object {
+
+    private var ioclPrefrence: LoginPreference? = null
+
+    fun getInstance(context: Context): LoginPreference {
+      if (ioclPrefrence == null) {
+        ioclPrefrence = LoginPreference(context)
+      }
+      return ioclPrefrence as LoginPreference
     }
-
-    // save string
-    fun savStringeData(key: String, value: String) {
-        val prefsEditor = sharedPreferences!!.edit()
-        prefsEditor.putString(key, value)
-        prefsEditor.apply()
-    }
-
-    // save int
-    fun savInteData(key: String, value: Int) {
-        val prefsEditor = sharedPreferences!!.edit()
-        prefsEditor.putInt(key, value)
-        prefsEditor.apply()
-    }
-
-    // fetch int
-    fun getIntData(key: String, defValue: Int): Int {
-        return if (sharedPreferences != null) {
-            sharedPreferences!!.getInt(key, defValue)
-        } else 0
-    }
-
-
-    // fetch string
-    fun getStringData(key: String, defValue: String): String? {
-        return if (sharedPreferences != null) {
-            sharedPreferences!!.getString(key, defValue)
-        } else ""
-    }
-
-    // save boolean
-    fun saveBooleanData(key: String, value: Boolean?) {
-        val prefsEditor = sharedPreferences!!.edit()
-        prefsEditor.putBoolean(key, value!!)
-        prefsEditor.apply()
-    }
-
-    // fetch boolean
-    fun getBooleanData(key: String, defValue: Boolean?): Boolean? {
-        return if (sharedPreferences != null) {
-            sharedPreferences!!.getBoolean(key, defValue!!)
-        } else null
-    }
-
-    companion object {
-
-        private var ioclPrefrence: LoginPreference? = null
-
-        fun getInstance(context: Context): LoginPreference {
-            if (ioclPrefrence == null) {
-                ioclPrefrence = LoginPreference(context)
-            }
-            return ioclPrefrence as LoginPreference
-        }
-    }
+  }
 
 }

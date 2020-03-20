@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+tools:context=".fragments.ExpensesHomeFragment"
+android:orientation="vertical">
+<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/background"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:id="@+id/linearcompact"
+            >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="DATE"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            <TextView
+                    android:id="@+id/selectdate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/dropdownbackground"
+                    android:textColor="@color/colorTextBlack"
+                    android:drawableRight="@drawable/ic_date_range_black_24dp"
+                    android:hint="@string/tap_to_select_date"
+                    android:textColorHint="@color/colorTextBlack"
+                    android:textSize="14sp">
+
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Expenses"
+                    android:textColor="#000000"
+                    android:layout_gravity="center"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            <RadioGroup
+                    android:id="@+id/expenses_radio_grp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <RadioButton
+                        android:id="@+id/r_first"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:textColor="@color/colorTextBlack"
+                        android:text="@string/weekly"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="@dimen/space10"
+
+                        />
+
+                <RadioButton
+                        android:id="@+id/r_second"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/out_station"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="@dimen/space15"
+                        tools:ignore="SmallSp"/>
+
+                <RadioButton
+                        android:id="@+id/r_third"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/na"
+                        android:layout_marginLeft="@dimen/space15"
+                        android:textColor="@color/colorTextBlack"
+                        android:textSize="14sp" tools:ignore="SmallSp"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:visibility="visible"
+                android:id="@+id/linear_na"
+                >
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"
+                    android:text="Activity Summary"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            <EditText
+                    android:id="@+id/summary_na"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:background="@drawable/dropdownbackground"
+                    android:textColor="@color/colorTextBlack"
+                    android:hint="@string/summary"
+                    android:textColorHint="@color/colorTextBlack"
+                    android:paddingLeft="@dimen/space5"
+                    android:textSize="14sp">
+
+            </EditText>
+        </LinearLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearcompact"
+            android:layout_above="@+id/bootm_Linear">
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/linear_local"
+                >
+
+
+            <androidx.cardview.widget.CardView
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/card_for_local">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/card_local"
+                        android:orientation="vertical">
+                    <TextView
+                            android:id="@+id/text_local"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=" Local Expenses "
+                            android:textStyle="bold"
+                            android:textSize="15dp"
+                            android:layout_marginLeft="20dp"
+                            android:drawableRight="@drawable/ic_expand_more"
+                            />
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/linear_recycle_local"
+                            android:visibility="visible">
+
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:visibility="visible"
+                                android:weightSum="2"
+                                android:id="@+id/linear_row"
+                                >
+                            <com.google.android.material.button.MaterialButton
+
+                                    android:id="@+id/btn_addnewrow"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:cornerRadius="4dp"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    app:strokeColor="@color/colorPrimaryDark"
+                                    android:textStyle="bold"
+                                    android:text="Add new Row"
+                                    android:theme="@style/MatButton"
+                                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                                    />
+                            <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_removenewrow"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:cornerRadius="4dp"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    app:strokeColor="@color/colorPrimaryDark"
+                                    android:textStyle="bold"
+
+                                    android:text="Delete Row"
+                                    android:theme="@style/MatButton"
+                                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                                    />
+                        </LinearLayout>
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/rv_expenses"
+                                android:layout_marginTop="@dimen/space5"
+                                android:visibility="visible" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/card_for_boarding">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/card"
+                        android:orientation="vertical">
+                    <TextView
+                            android:id="@+id/text_bording"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Boarding and Lodging/Communication(Phone,Fax,Email)/Other Business Expenses "
+                            android:drawableRight="@drawable/ic_expand_more"
+                            android:textStyle="bold"
+                            android:textSize="15dp"
+                            android:layout_marginLeft="20dp"
+                            />
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/linear_recycle"
+                            android:visibility="gone"
+                            >
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:weightSum="2"
+                                android:layout_below="@+id/text_bording"
+                                android:id="@+id/linear"
+
+                                >
+
+
+                            <com.google.android.material.button.MaterialButton
+
+                                    android:id="@+id/btn_addnewrow_out"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:cornerRadius="4dp"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    app:strokeColor="@color/colorPrimaryDark"
+                                    android:textStyle="bold"
+                                    android:text="Add new Row"
+                                    android:theme="@style/MatButton"
+                                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+
+                                    />
+                            <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_removenewrow_out"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    app:cornerRadius="4dp"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    app:strokeColor="@color/colorPrimaryDark"
+                                    android:textStyle="bold"
+                                    android:text="Delete Row"
+                                    android:theme="@style/MatButton"
+                                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                    />
+
+
+                        </LinearLayout>
+                        <androidx.recyclerview.widget.RecyclerView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/rv_expenses_outstation"
+                                android:layout_marginTop="@dimen/space5"
+                                android:visibility="visible"
+                                android:layout_below="@+id/linear"
+                                />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/bootm_Linear"
+            android:gravity="center">
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cornerRadius="4dp"
+                android:textColor="@color/colorPrimaryDark"
+                app:strokeColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="SUBMIT"
+                android:theme="@style/MatButton"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                app:strokeWidth="2dp"
+                />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>
+
+
+</RelativeLayout>

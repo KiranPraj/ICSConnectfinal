@@ -353,8 +353,8 @@ class GrpNameFragmentFragment : androidx.fragment.app.Fragment(), GroupNameAdapt
 
         //      max Height and width values of the compressed image is taken as 816x612
 
-        val maxHeight = 816.0f
-        val maxWidth = 612.0f
+        val maxHeight = 1500.0f
+        val maxWidth = 2000.0f
         var imgRatio = (actualWidth / actualHeight).toFloat()
         val maxRatio = maxWidth / maxHeight
 

@@ -137,7 +137,7 @@ class GroupNameAdapter(
             val master=mList.get(holder.adapterPosition).masterAdmin
             val admin=mList.get(holder.adapterPosition).groupAdmin
             val members=mList.get(holder.adapterPosition).members
-        if(!members!!.contains(id!!))
+        if(!members!!.contains(id!!)||members!!.contains(master!!))
         {
                 holder.lin.setOnLongClickListener(View.OnLongClickListener {
                     holder.editpen.visibility=View.VISIBLE

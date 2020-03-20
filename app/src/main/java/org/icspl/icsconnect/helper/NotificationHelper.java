@@ -51,7 +51,7 @@ public class NotificationHelper extends ContextWrapper {
         return new Notification.Builder(getApplicationContext(),CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(Message)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.icslogo)
                 .setSound(vsoundUri, AudioAttributes.CONTENT_TYPE_SONIFICATION)
                 .setAutoCancel(true);
     }

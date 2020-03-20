@@ -103,26 +103,26 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
     private fun initView() {
         mToolbar = findViewById(R.id.toolbar)
         setSupportActionBar(mToolbar)
-            var strid=mLoginPreference.getStringData("id","")!!
-            var members=mLoginPreference.getStringData("members","")!!
+        var strid=mLoginPreference.getStringData("id","")!!
+        var members=mLoginPreference.getStringData("members","")!!
+        var master = mLoginPreference.getStringData("masterAdmin", "")
+        var Admin = mLoginPreference.getStringData("Admin", "")
 
 
-        if(members.contains(strid))
-            {
-                rl_bottom.visibility=View.GONE
+        if(members.contains(strid)&&!master!!.contains(strid)&&!Admin!!.contains(strid))
+        {
+            rl_bottom.visibility=View.GONE
+        }
 
-
+        if (intent != null) {
+            photoPath = if (intent.getStringExtra("photo") != null) {
+                intent.getStringExtra("photo")
+            } else {
+                ""
             }
-
-          if (intent != null) {
-              photoPath = if (intent.getStringExtra("photo") != null) {
-                  intent.getStringExtra("photo")
-              } else {
-                  ""
-              }
-              //queryId = intent.getStringExtra("queryId")
-              toemp = intent.getStringExtra("toemp")
-          }
+            //queryId = intent.getStringExtra("queryId")
+            toemp = intent.getStringExtra("toemp")
+        }
         supportActionBar!!.title = "Query Id"
 
         bt_attachment.setOnClickListener { checkPermissions() }
@@ -152,7 +152,7 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
         recyclerView.setAdapter(mAdapter)
         recyclerView.postDelayed(
             {
-               // recyclerView.smoothScrollToPosition(recyclerView.getAdapter()!!.getItemCount() - 1)
+                // recyclerView.smoothScrollToPosition(recyclerView.getAdapter()!!.getItemCount() - 1)
                 mAdapter!!.notifyDataSetChanged()
             },
             1000
@@ -323,9 +323,9 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
                 .subscribe({ s ->
                     if (s != null) {
                         progress_chat.visibility = View.GONE
-                        s.groupMessages?.forEach {
+                        s.groupMessages!!.forEach {
                             val fromTo =
-                                 if ((mLoginPreference.getStringData("master_admin", "")!! == mLoginPreference.getStringData("id", "")!!)||  mLoginPreference.getStringData("Admin", "")!!.contains( mLoginPreference.getStringData("id", "")!!)) "2" else "1"
+                                if ((mLoginPreference.getStringData("master_admin", "")!! == mLoginPreference.getStringData("id", "")!!)||  mLoginPreference.getStringData("Admin", "")!!.contains( mLoginPreference.getStringData("id", "")!!)) "2" else "1"
 
                             val item = Chat(fromTo,""+it.qMessage,""+it.qDate,photoPath,it.qAttachment)
                             data.add(item)
@@ -338,11 +338,11 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
                     progress_chat.visibility = View.GONE
                 },
                     { throwable ->
-                    run {
-                        progress_chat.visibility = View.VISIBLE
-                        Log.i(TAG, throwable.message)
-                    }
-                })
+                        run {
+                            progress_chat.visibility = View.VISIBLE
+                            Log.i(TAG, throwable.message)
+                        }
+                    })
         )
         return data
     }
@@ -350,7 +350,7 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-           R.id.deletegrp -> deleteGroup()
+            R.id.deletegrp -> deleteGroup()
         }
         return true
     }
@@ -364,7 +364,7 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
         }
 
         AlertDialog.Builder(this@GroupChatActivity)
-            .setIcon(R.mipmap.ic_launcher)
+            .setIcon(R.drawable.icslogo)
             .setTitle("Delete group")
             .setMessage("Are you sure wants to Delete the Group")
             .setPositiveButton(getString(R.string.delete_group)) { dialog, which ->
@@ -575,8 +575,8 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
 
         //      max Height and width values of the compressed image is taken as 816x612
 
-        val maxHeight = 816.0f
-        val maxWidth = 612.0f
+        val maxHeight = 1500.0f
+        val maxWidth = 2000.0f
         var imgRatio = (actualWidth / actualHeight).toFloat()
         val maxRatio = maxWidth / maxHeight
 
@@ -918,5 +918,13 @@ class GroupChatActivity : AppCompatActivity(), ChatAdapter.DoccumentClickHandler
             .build()
 
         fetch = Fetch.getInstance(fetchConfiguration)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        var edit = mLoginPreference.sharedPreferences!!.edit()
+        //edit.remove("id")
+        edit.remove("groupid")
+        edit.commit()
     }
 }

@@ -61,7 +61,7 @@ class MyFirebaseIDService : FirebaseMessagingService() {
             val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val data = remoteMessage.data
             val notificationBuilder = NotificationCompat.Builder(this)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.icslogo)
                     .setColor(ContextCompat.getColor(applicationContext,R.color.colorAccent))
                     .setContentTitle(data["title"].toString())
                     .setContentText(data["msg"].toString())
